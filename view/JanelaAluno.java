@@ -1,25 +1,29 @@
 package view;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
     private JLabel labelMatricula, labelNome, labelEmail;
     private JTextField textMatricula, textNome, textEmail;
     private JButton buttonCreate, buttonUpdate, buttonDelete;
-    private JPanel panelMatricula, panelNome, panelEmail, panelBotoes;
-    private JTable tabela;
+    private JPanel panelPrincipal, panelMatricula, panelNome, panelEmail;
     
     public JanelaAluno(){
         super("Gerenciador Alunos");
-        setSize(300,200);
+        setSize(500,300);
         setLocationRelativeTo(null);
 
         criarComponentes();
@@ -30,6 +34,8 @@ public class JanelaAluno extends JFrame {
     private void criarComponentes(){
         criarLabels();
         criarBotoes();
+        criarTexts();
+        criarPaneis();
     }
 
     private void criarLabels(){
@@ -42,6 +48,16 @@ public class JanelaAluno extends JFrame {
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
+    private void criarTexts(){
+        textMatricula = new JTextField("");
+        textNome = new JTextField("");
+        textEmail = new JTextField("");
+
+        textMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textNome.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
     private void criarBotoes(){
 		buttonCreate = new JButton("Create");
         buttonUpdate = new JButton("Update");
@@ -50,6 +66,28 @@ public class JanelaAluno extends JFrame {
         buttonCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void criarPaneis(){
+        criarPanelMatricula();
+        criarPanelPrincipal();
+        add(panelPrincipal, BorderLayout.WEST);
+    }
+
+    private void criarPanelMatricula(){
+        panelMatricula = new JPanel();
+        panelMatricula.setLayout(new BoxLayout(panelMatricula, BoxLayout.X_AXIS));
+        panelMatricula.add(Box.createHorizontalBox());
+        panelMatricula.add(labelMatricula);
+        panelMatricula.add(Box.createRigidArea(new Dimension(10, 0)));
+        panelMatricula.add(textMatricula);
+        panelMatricula.add(Box.createHorizontalGlue());
+    }
+
+    private void criarPanelPrincipal(){
+        panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.PAGE_AXIS));
+        panelPrincipal.add(panelMatricula, BorderLayout.WEST);
     }
 
     public JButton getButtonCreate() {
@@ -88,12 +126,8 @@ public class JanelaAluno extends JFrame {
         this.textEmail = textEmail;
     }
 
-    public JTable getTabela() {
-        return tabela;
-    }
-
-    public void setTabela(JTable tabela) {
-        this.tabela = tabela;
+    public static void main(String[] args) {
+        JanelaAluno janela = new JanelaAluno();
     }
     
 }
