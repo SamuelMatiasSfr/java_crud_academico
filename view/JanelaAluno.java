@@ -51,5 +51,49 @@ public class JanelaAluno extends JFrame {
         buttonUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
+
+    public JButton getButtonCreate() {
+        return buttonCreate;
+    }
+
+    public JButton getButtonUpdate() {
+        return buttonUpdate;
+    }
+
+    public JButton getButtonDelete() {
+        return buttonDelete;
+    }
+
+    public JTextField getTextMatricula() {
+        return textMatricula;
+    }
+
+    public void setTextMatricula(JTextField textMatricula) {
+        this.textMatricula = textMatricula;
+    }
+
+    public JTextField getTextNome() {
+        return textNome;
+    }
+
+    public void setTextNome(JTextField textNome) {
+        this.textNome = textNome;
+    }
+
+    public JTextField getTextEmail() {
+        return textEmail;
+    }
+
+    public void setTextEmail(JTextField textEmail) {
+        this.textEmail = textEmail;
+    }
+
+    public JTable getTabela() {
+        return tabela;
+    }
+
+    public void setTabela(JTable tabela) {
+        this.tabela = tabela;
+    }
     
 }
