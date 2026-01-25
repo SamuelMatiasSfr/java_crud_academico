@@ -14,8 +14,8 @@ import java.awt.Dimension;
 public class JanelaPrincipal extends JFrame {
     
     private JLabel label;
-    private JButton buttonAluno, buttonProfessor, buttonServidor;
-    private JPanel panel; 
+    private JButton botaoAluno, botaoProfessor, botaoServidor;
+    private JPanel painel; 
 
     public JanelaPrincipal(){
         super("Tela Inicial");
@@ -23,36 +23,36 @@ public class JanelaPrincipal extends JFrame {
         setLocationRelativeTo(null);
 
         criarComponentes();
-        criarPanel();
+        criarPainel();
 
         setVisible(true);
     }
 
     private void criarComponentes(){
         label = new JLabel("Escolha o que adicionar:");
-		buttonAluno = new JButton("Aluno");
-        buttonProfessor = new JButton("Professor");
-		buttonServidor = new JButton("Administrador");
+		botaoAluno = new JButton("Aluno");
+        botaoProfessor = new JButton("Professor");
+		botaoServidor = new JButton("Administrador");
 
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonAluno.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonProfessor.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonServidor.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoAluno.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoProfessor.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoServidor.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    private void criarPanel(){
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(Box.createVerticalGlue());
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0,10)));
-        panel.add(buttonAluno);
-        panel.add(Box.createRigidArea(new Dimension(0,10)));
-        panel.add(buttonProfessor);
-        panel.add(Box.createRigidArea(new Dimension(0,10)));
-        panel.add(buttonServidor);
-        panel.add(Box.createVerticalGlue());
-        add(panel, BorderLayout.CENTER);
+    private void criarPainel(){
+        painel = new JPanel();
+        painel.setLayout(new BoxLayout(painel, BoxLayout.PAGE_AXIS));
+        painel.add(Box.createVerticalGlue());
+        painel.add(label);
+        painel.add(Box.createRigidArea(new Dimension(0,10)));
+        painel.add(botaoAluno);
+        painel.add(Box.createRigidArea(new Dimension(0,10)));
+        painel.add(botaoProfessor);
+        painel.add(Box.createRigidArea(new Dimension(0,10)));
+        painel.add(botaoServidor);
+        painel.add(Box.createVerticalGlue());
+        add(painel, BorderLayout.CENTER);
     }
 
 }

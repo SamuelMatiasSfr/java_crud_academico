@@ -120,7 +120,7 @@ public class JanelaAluno extends JFrame {
         return textoEmail;
     }
 
-    public void setTextoEmail(JTextField textoEmail) {
+   public void setTextoEmail(JTextField textoEmail) {
         this.textoEmail = textoEmail;
     }
 
