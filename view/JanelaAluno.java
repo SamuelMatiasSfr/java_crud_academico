@@ -6,9 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -17,9 +15,9 @@ import java.awt.Dimension;
 public class JanelaAluno extends JFrame {
 
     private JLabel labelMatricula, labelNome, labelEmail;
-    private JTextField textMatricula, textNome, textEmail;
-    private JButton buttonCreate, buttonUpdate, buttonDelete;
-    private JPanel panelPrincipal, panelMatricula, panelNome, panelEmail;
+    private JTextField textoMatricula, textoNome, textoEmail;
+    private JButton botaoCreate, botaoUpdate, botaoDelete;
+    private JPanel painelPrincipal, painelMatricula, painelNome, painelEmail;
     
     public JanelaAluno(){
         super("Gerenciador Alunos");
@@ -34,7 +32,7 @@ public class JanelaAluno extends JFrame {
     private void criarComponentes(){
         criarLabels();
         criarBotoes();
-        criarTexts();
+        criarTextos();
         criarPaneis();
     }
 
@@ -48,86 +46,86 @@ public class JanelaAluno extends JFrame {
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    private void criarTexts(){
-        textMatricula = new JTextField("");
-        textNome = new JTextField("");
-        textEmail = new JTextField("");
+    private void criarTextos(){
+        textoMatricula = new JTextField("");
+        textoNome = new JTextField("");
+        textoEmail = new JTextField("");
 
-        textMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textNome.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textoMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textoNome.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textoEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarBotoes(){
-		buttonCreate = new JButton("Create");
-        buttonUpdate = new JButton("Update");
-        buttonDelete = new JButton("Delete");
+        botaoCreate = new JButton("Create");
+        botaoUpdate = new JButton("Update");
+        botaoDelete = new JButton("Delete");
 
-        buttonCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarPaneis(){
-        criarPanelMatricula();
-        criarPanelPrincipal();
-        add(panelPrincipal, BorderLayout.WEST);
+        criarPainelMatricula();
+        criarPainelPrincipal();
+        add(painelPrincipal, BorderLayout.WEST);
     }
 
-    private void criarPanelMatricula(){
-        panelMatricula = new JPanel();
-        panelMatricula.setLayout(new BoxLayout(panelMatricula, BoxLayout.X_AXIS));
-        panelMatricula.add(Box.createHorizontalBox());
-        panelMatricula.add(labelMatricula);
-        panelMatricula.add(Box.createRigidArea(new Dimension(10, 0)));
-        panelMatricula.add(textMatricula);
-        panelMatricula.add(Box.createHorizontalGlue());
+    private void criarPainelMatricula(){
+        painelMatricula = new JPanel();
+        painelMatricula.setLayout(new BoxLayout(painelMatricula, BoxLayout.X_AXIS));
+        painelMatricula.add(Box.createHorizontalBox());
+        painelMatricula.add(labelMatricula);
+        painelMatricula.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelMatricula.add(textoMatricula);
+        painelMatricula.add(Box.createHorizontalGlue());
     }
 
-    private void criarPanelPrincipal(){
-        panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.PAGE_AXIS));
-        panelPrincipal.add(panelMatricula, BorderLayout.WEST);
+    private void criarPainelPrincipal(){
+        painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.PAGE_AXIS));
+        painelPrincipal.add(painelMatricula, BorderLayout.WEST);
     }
 
-    public JButton getButtonCreate() {
-        return buttonCreate;
+    public JButton getBotaoCreate() {
+        return botaoCreate;
     }
 
-    public JButton getButtonUpdate() {
-        return buttonUpdate;
+    public JButton getBotaoUpdate() {
+        return botaoUpdate;
     }
 
-    public JButton getButtonDelete() {
-        return buttonDelete;
+    public JButton getBotaoDelete() {
+        return botaoDelete;
     }
 
-    public JTextField getTextMatricula() {
-        return textMatricula;
+    public JTextField getTextoMatricula() {
+        return textoMatricula;
     }
 
-    public void setTextMatricula(JTextField textMatricula) {
-        this.textMatricula = textMatricula;
+    public void setTextoMatricula(JTextField textoMatricula) {
+        this.textoMatricula = textoMatricula;
     }
 
-    public JTextField getTextNome() {
-        return textNome;
+    public JTextField getTextoNome() {
+        return textoNome;
     }
 
-    public void setTextNome(JTextField textNome) {
-        this.textNome = textNome;
+    public void setTextoNome(JTextField textoNome) {
+        this.textoNome = textoNome;
     }
 
-    public JTextField getTextEmail() {
-        return textEmail;
+    public JTextField getTextoEmail() {
+        return textoEmail;
     }
 
-    public void setTextEmail(JTextField textEmail) {
-        this.textEmail = textEmail;
+    public void setTextoEmail(JTextField textoEmail) {
+        this.textoEmail = textoEmail;
     }
 
     public static void main(String[] args) {
         JanelaAluno janela = new JanelaAluno();
     }
-    
+
 }
