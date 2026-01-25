@@ -1,14 +1,17 @@
 package view;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -128,6 +131,7 @@ public class JanelaAluno extends JFrame {
         painelPrincipal.add(painelEmail, BorderLayout.WEST);
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelBotoes, BorderLayout.WEST);
+        painelPrincipal.setBorder(new EmptyBorder(10,10,10,10));
     }
 
     public JButton getBotaoCreate() {
