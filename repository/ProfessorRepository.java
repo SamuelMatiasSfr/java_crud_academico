@@ -2,47 +2,119 @@ package repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.Aluno;
 import model.Professor;
 
 public class ProfessorRepository {
 
     public void create(Professor professor){
-        String sql = "INSERT INTO  (matricula, nome, email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO professores (matricula, nome, email, formacao, status) VALUES (?, ?, ?, ?, ?)";
         
         try {
             Connection conexao = Conexao.getConexao();
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, aluno.getMatricula());
-            stmt.setString(2, aluno.getNome());
-            stmt.setString(3, aluno.getEmail());
+            stmt.setInt(1, professor.getMatricula());
+            stmt.setString(2, professor.getNome());
+            stmt.setString(3, professor.getEmail());
+            stmt.setString(4, professor.getFormacao());
+            stmt.setInt(5, professor.getStatus());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
-    public Professor read(){
-        
-        
-        Professor professor = new Professor(0, 0, null, null, null, 0);
+    public Professor read(int id){
+        String sql = "SELECT * FROM professores WHERE id = ?";    
+        Professor professor = null;
+
+        try { 
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                professor = new Professor(
+                    result.getInt("id"), 
+                    result.getInt("matricula"), 
+                    result.getString("nome"), 
+                    result.getString("email"),
+                    result.getString("formacao"),
+                    result.getInt("status")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return professor;
     }
 
     public void update(Professor professor){
+        String sql = "UPDATE professores SET matricula = ?, nome = ?, email = ?, formacao = ?, status = ? WHERE id = ?";
+
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, professor.getMatricula());
+            stmt.setString(2, professor.getNome());
+            stmt.setString(3, professor.getEmail());
+            stmt.setString(4, professor.getFormacao());
+            stmt.setInt(5, professor.getStatus());
+            stmt.setInt(6, professor.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void delete(int id){
+        String sql = "DELETE FROM professores WHERE id = ?";
+
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public ArrayList<Professor> getTodos(){
         ArrayList<Professor> professores = new ArrayList<>();
 
-        
+        String sql = "SELECT * FROM professores";
+
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet result = stmt.executeQuery();
+
+            while(result.next()){
+                professores.add(
+                    new Professor(
+                        result.getInt("id"), 
+                        result.getInt("matricula"), 
+                        result.getString("nome"), 
+                        result.getString("email"),
+                        result.getString("formacao"),
+                        result.getInt("status")
+                    )
+                ); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return professores;
     }
