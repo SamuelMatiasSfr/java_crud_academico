@@ -2,6 +2,7 @@ package repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,10 +26,29 @@ public class AlunoRepository {
 
     }
 
-    public Aluno read(){
-        
-        
-        Aluno aluno = new Aluno(0, 0, null, null);
+    public Aluno read(int id){
+        String sql = "SELECT * FROM aluno WHERE id = ?";    
+        Aluno aluno = null;
+
+        try { 
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                aluno = new Aluno(
+                    result.getInt("id"), 
+                    result.getInt("matricula"), 
+                    result.getString("nome"), 
+                    result.getString("email")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return aluno;
     }
 
