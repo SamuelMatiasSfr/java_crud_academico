@@ -113,43 +113,32 @@ public class JanelaAluno extends JFrame {
     private void criarPainelMatricula(){
         painelMatricula = new JPanel();
         painelMatricula.setLayout(new BoxLayout(painelMatricula, BoxLayout.Y_AXIS));
-        painelMatricula.add(Box.createVerticalBox());
         painelMatricula.add(labelMatricula);
-        painelMatricula.add(Box.createRigidArea(new Dimension(10, 0)));
         painelMatricula.add(textoMatricula);
-        painelMatricula.add(Box.createVerticalBox());
     }
 
     private void criarPainelNome(){
         painelNome = new JPanel();
         painelNome.setLayout(new BoxLayout(painelNome, BoxLayout.Y_AXIS));
-        painelNome.add(Box.createVerticalBox());
         painelNome.add(labelNome);
-        painelNome.add(Box.createRigidArea(new Dimension(10, 0)));
         painelNome.add(textoNome);
-        painelNome.add(Box.createVerticalBox());
     }
 
     private void criarPainelEmail(){
         painelEmail = new JPanel();
         painelEmail.setLayout(new BoxLayout(painelEmail, BoxLayout.Y_AXIS));
-        painelEmail.add(Box.createVerticalBox());
         painelEmail.add(labelEmail);
-        painelEmail.add(Box.createRigidArea(new Dimension(10, 0)));
         painelEmail.add(textoEmail);
-        painelNome.add(Box.createVerticalBox());
     }
 
     private void criarPainelBotoes(){
         painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.X_AXIS));
-        painelBotoes.add(Box.createHorizontalBox());
         painelBotoes.add(botaoCreate);
         painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBotoes.add(botaoUpdate);
         painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBotoes.add(botaoDelete);
-        painelBotoes.add(Box.createHorizontalGlue());
     }
 
     private void criarPainelPrincipal(){

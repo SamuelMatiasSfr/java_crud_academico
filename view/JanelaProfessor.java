@@ -159,13 +159,11 @@ public class JanelaProfessor extends JFrame {
     private void criarPainelBotoes(){
         painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.X_AXIS));
-        painelBotoes.add(Box.createHorizontalBox());
         painelBotoes.add(botaoCreate);
         painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBotoes.add(botaoUpdate);
         painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBotoes.add(botaoDelete);
-        painelBotoes.add(Box.createHorizontalGlue());
     }
 
     private void criarPainelPrincipal(){
