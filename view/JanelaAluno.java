@@ -1,6 +1,5 @@
 package view;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -81,7 +80,19 @@ public class JanelaAluno extends JFrame {
         Object [][] dados = {
             {"2026001", "Alana", "alana@gmail.com"},
             {"2026002", "Lucas", "lucas@gmail.com"},
-            {"2026003", "Daniel", "daniel@gmail.com"}
+            {"2026003", "Daniel", "daniel@gmail.com"},
+            {"2026004", "Mariana", "mariana@gmail.com"},
+            {"2026005", "Pedro", "pedro@gmail.com"},
+            {"2026006", "Carla", "carla@gmail.com"},
+            {"2026007", "Rafael", "rafael@gmail.com"},
+            {"2026008", "Beatriz", "beatriz@gmail.com"},
+            {"2026009", "João", "joao@gmail.com"},
+            {"2026010", "Fernanda", "fernanda@gmail.com"},
+            {"2026011", "Bruno", "bruno@gmail.com"},
+            {"2026012", "Camila", "camila@gmail.com"},
+            {"2026013", "Thiago", "thiago@gmail.com"},
+            {"2026014", "Larissa", "larissa@gmail.com"},
+            {"2026015", "Gabriel", "gabriel@gmail.com"}
         };
 
         tabelaModel = new DefaultTableModel(dados, colunas);
