@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -21,10 +23,13 @@ public class JanelaAluno extends JFrame {
     private JTextField textoMatricula, textoNome, textoEmail;
     private JButton botaoCreate, botaoUpdate, botaoDelete;
     private JPanel painelPrincipal, painelMatricula, painelNome, painelEmail, painelBotoes;
-    
+    private DefaultTableModel tabelaModel;
+    private JTable tabela;
+    private JScrollPane painelScroll;
+
     public JanelaAluno(){
         super("Gerenciador Alunos");
-        setSize(500,300);
+        setSize(750,300);
         setLocationRelativeTo(null);
 
         criarComponentes();
@@ -34,9 +39,11 @@ public class JanelaAluno extends JFrame {
 
     private void criarComponentes(){
         criarLabels();
-        criarBotoes();
         criarTextos();
+        criarBotoes();
+        criarTabela();
         criarPaneis();
+        tabelaModel.insertRow(0, new Object[] {"2026004", "Lidia", "lidia@gmail.com"});
     }
 
     private void criarLabels(){
@@ -69,13 +76,27 @@ public class JanelaAluno extends JFrame {
         botaoDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
+    private void criarTabela(){
+        String [] colunas = {"Matrícula", "Nome", "Email"};
+        Object [][] dados = {
+            {"2026001", "Alana", "alana@gmail.com"},
+            {"2026002", "Lucas", "lucas@gmail.com"},
+            {"2026003", "Daniel", "daniel@gmail.com"}
+        };
+
+        tabelaModel = new DefaultTableModel(dados, colunas);
+        tabela = new JTable(tabelaModel);
+    }
+
     private void criarPaneis(){
         criarPainelMatricula();
         criarPainelNome();
         criarPainelEmail();
         criarPainelBotoes();
         criarPainelPrincipal();
+        criarPainelScroll();
         add(painelPrincipal, BorderLayout.WEST);
+        add(painelScroll, BorderLayout.EAST);
     }
 
     private void criarPainelMatricula(){
@@ -132,6 +153,11 @@ public class JanelaAluno extends JFrame {
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelBotoes, BorderLayout.WEST);
         painelPrincipal.setBorder(new EmptyBorder(10,10,10,10));
+    }
+
+    private void criarPainelScroll(){
+        painelScroll = new JScrollPane(tabela);
+        painelScroll.setBorder(new EmptyBorder(10,0,10,10));
     }
 
     public JButton getBotaoCreate() {
