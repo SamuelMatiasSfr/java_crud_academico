@@ -14,6 +14,10 @@ public class Aluno{
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getMatricula() {
         return matricula;
     }

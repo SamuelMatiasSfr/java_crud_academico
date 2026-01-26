@@ -18,6 +18,10 @@ public class Professor {
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getMatricula() {
         return matricula;
     }

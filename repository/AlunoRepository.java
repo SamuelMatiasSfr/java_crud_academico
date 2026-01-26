@@ -53,10 +53,33 @@ public class AlunoRepository {
     }
 
     public void update(Aluno aluno){
+        String sql = "UPDATE aluno SET matricula = ?, nome = ?, email = ? WHERE id = ?";
+
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, aluno.getMatricula());
+            stmt.setString(2, aluno.getNome());
+            stmt.setString(3, aluno.getEmail());
+            stmt.setInt(4, aluno.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void delete(int id){
+        String sql = "DELETE FROM aluno WHERE id = ?";
+
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

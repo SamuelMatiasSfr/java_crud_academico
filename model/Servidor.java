@@ -16,6 +16,10 @@ public class Servidor{
         this.setor = setor;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getMatricula() {
         return matricula;
     }
