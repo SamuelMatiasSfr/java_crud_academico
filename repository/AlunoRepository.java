@@ -11,7 +11,7 @@ import model.Aluno;
 public class AlunoRepository {
     
     public void create(Aluno aluno){
-        String sql = "INSERT INTO Aluno (matricula, nome, email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO alunos (matricula, nome, email) VALUES (?, ?, ?)";
         
         try {
             Connection conexao = Conexao.getConexao();
@@ -27,7 +27,7 @@ public class AlunoRepository {
     }
 
     public Aluno read(int id){
-        String sql = "SELECT * FROM aluno WHERE id = ?";    
+        String sql = "SELECT * FROM alunos WHERE id = ?";    
         Aluno aluno = null;
 
         try { 
@@ -53,7 +53,7 @@ public class AlunoRepository {
     }
 
     public void update(Aluno aluno){
-        String sql = "UPDATE aluno SET matricula = ?, nome = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE alunos SET matricula = ?, nome = ?, email = ? WHERE id = ?";
 
         try {
             Connection conexao = Conexao.getConexao();
@@ -70,7 +70,7 @@ public class AlunoRepository {
     }
 
     public void delete(int id){
-        String sql = "DELETE FROM aluno WHERE id = ?";
+        String sql = "DELETE FROM alunos WHERE id = ?";
 
         try {
             Connection conexao = Conexao.getConexao();
