@@ -85,8 +85,26 @@ public class AlunoRepository {
 
     public ArrayList<Aluno> getTodos(){
         ArrayList<Aluno> alunos = new ArrayList<>();
+        String sql = "SELECT * FROM alunos";
 
+        try {
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet result = stmt.executeQuery();
 
+            while(result.next()){
+                alunos.add(
+                    new Aluno(
+                        result.getInt("id"), 
+                        result.getInt("matricula"), 
+                        result.getString("nome"), 
+                        result.getString("email")
+                    )
+                ); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return alunos;
     }
