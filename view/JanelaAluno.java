@@ -152,12 +152,12 @@ public class JanelaAluno extends JFrame {
         painelPrincipal.add(painelEmail, BorderLayout.WEST);
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelBotoes, BorderLayout.WEST);
-        painelPrincipal.setBorder(new EmptyBorder(10,10,10,10));
+        painelPrincipal.setBorder(new EmptyBorder(15,15,15,15));
     }
 
     private void criarPainelScroll(){
         painelScroll = new JScrollPane(tabela);
-        painelScroll.setBorder(new EmptyBorder(10,0,10,10));
+        painelScroll.setBorder(new EmptyBorder(15,0,15,15));
     }
 
     public JButton getBotaoCreate() {
