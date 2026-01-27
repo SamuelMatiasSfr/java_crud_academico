@@ -55,4 +55,16 @@ public class JanelaPrincipal extends JFrame {
         add(painel, BorderLayout.CENTER);
     }
 
+    public JButton getBotaoAluno() {
+        return botaoAluno;
+    }
+
+    public JButton getBotaoProfessor() {
+        return botaoProfessor;
+    }
+
+    public JButton getBotaoServidor() {
+        return botaoServidor;
+    }
+
 }
