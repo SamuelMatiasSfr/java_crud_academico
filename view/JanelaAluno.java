@@ -42,7 +42,6 @@ public class JanelaAluno extends JFrame {
         criarBotoes();
         criarTabela();
         criarPaneis();
-        tabelaModel.insertRow(0, new Object[] {"2026004", "Lidia", "lidia@gmail.com"});
     }
 
     private void criarLabels(){

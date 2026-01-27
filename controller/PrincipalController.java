@@ -3,12 +3,14 @@ package controller;
 import view.JanelaAluno;
 import view.JanelaPrincipal;
 import view.JanelaProfessor;
+import view.JanelaServidor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import repository.AlunoRepository;
 import repository.ProfessorRepository;
+import repository.ServidorRepository;
 
 public class PrincipalController {
 
@@ -39,6 +41,15 @@ public class PrincipalController {
             }
         );
 
+        janelaPrincipal.getBotaoServidor().addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evento){
+                    criarGerenciadorServidores();
+                }
+            }
+        );
+
     }
 
     public void criarGerenciadorAlunos(){
@@ -51,6 +62,12 @@ public class PrincipalController {
         ProfessorRepository professorRepository = new ProfessorRepository();
         JanelaProfessor janelaProfessor = new JanelaProfessor();
         ProfessorController professorController = new ProfessorController(professorRepository, janelaProfessor);
+    }
+
+    public void criarGerenciadorServidores(){
+        ServidorRepository servidorRepository = new ServidorRepository();
+        JanelaServidor janelaServidor = new JanelaServidor();
+        ServidorController servidorController = new ServidorController(servidorRepository, janelaServidor);
     }
 
     public static void main(String[] args) {
