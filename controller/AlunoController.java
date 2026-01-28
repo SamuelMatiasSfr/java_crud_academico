@@ -20,11 +20,25 @@ public class AlunoController{
         this.alunoRepository = alunoRepository;
         this.janelaAluno = janelaAluno;
         this.alunos = new ArrayList<>();
-        this.alunos = alunoRepository.getTodos();
         definirListeners();
+        definirDadosDaTabela();
     }
 
-    public void definirListeners(){
+    private void definirDadosDaTabela(){
+        this.alunos = this.alunoRepository.getTodos();
+
+        Object [][] dados = new Object[alunos.size()][4];
+        for(int i=0; i<dados.length; i++){
+            dados[i][0] = alunos.get(i).getId();
+            dados[i][1] = alunos.get(i).getMatricula();
+            dados[i][2] = alunos.get(i).getNome();
+            dados[i][3] = alunos.get(i).getEmail();
+        }
+
+        janelaAluno.definirTabela(dados);
+    }
+
+    private void definirListeners(){
 
         janelaAluno.getTabela().addMouseListener(
             new MouseAdapter() {
@@ -73,5 +87,10 @@ public class AlunoController{
         alunoRepository.create(new Aluno(0, matricula, nome, email));
     }
 
+    public static void main(String[] args) {
+        AlunoRepository alunoRepository = new AlunoRepository();
+        JanelaAluno janelaAluno = new JanelaAluno();
+        AlunoController alunoController = new AlunoController(alunoRepository, janelaAluno);
+    }
 
 }
