@@ -57,6 +57,7 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     salvarAluno();
+                    limparCamposDeTexto();
                 }
             }
         );
@@ -66,6 +67,7 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     atualizarAluno();
+                    limparCamposDeTexto();
                 }
             }
         );
@@ -75,13 +77,14 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     deletarAluno();
+                    limparCamposDeTexto();
                 }
             }
         );
 
     }
 
-    public void pegarDadosDaLinhaDaTabela(){
+    private void pegarDadosDaLinhaDaTabela(){
         int linha = janelaAluno.getTabela().getSelectedRow();
         if(linha >= 0){
             String id = janelaAluno.getTabela().getValueAt(linha, 0).toString();
@@ -95,14 +98,15 @@ public class AlunoController{
         }
     }
 
-    public void salvarAluno(){
+    private void salvarAluno(){
         int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());
         String nome = janelaAluno.getTextoNome().getText();
         String email = janelaAluno.getTextoEmail().getText();
         alunoRepository.create(new Aluno(0, matricula, nome, email));
+        definirDadosDaTabela();
     }
 
-    public void atualizarAluno(){
+    private void atualizarAluno(){
         int id = Integer.parseInt(janelaAluno.getTextoId().getText());
         int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());        
         String nome = janelaAluno.getTextoNome().getText();
@@ -122,7 +126,7 @@ public class AlunoController{
         }
     }
 
-    public void deletarAluno(){
+    private void deletarAluno(){
         int id = Integer.parseInt(janelaAluno.getTextoId().getText());
         for(int i=0; i<alunos.size(); i++){
             if(id == alunos.get(i).getId()){
@@ -130,6 +134,13 @@ public class AlunoController{
                 definirDadosDaTabela();
             }
         }
+    }
+
+    private void limparCamposDeTexto(){
+        janelaAluno.getTextoId().setText("");
+        janelaAluno.getTextoMatricula().setText("");
+        janelaAluno.getTextoNome().setText("");
+        janelaAluno.getTextoEmail().setText("");
     }
 
     public static void main(String[] args) {
