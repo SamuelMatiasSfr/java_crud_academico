@@ -13,15 +13,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErro;
     private JTextField textoId, textoMatricula, textoNome, textoEmail;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar;
-    private JPanel painelPrincipal, painelId, painelMatricula, painelNome, painelEmail, painelBotoes;
+    private JPanel painelPrincipal, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
     private JScrollPane painelScroll;
@@ -49,11 +50,14 @@ public class JanelaAluno extends JFrame {
         labelMatricula = new JLabel("Matrícula: ");
         labelNome = new JLabel("Nome: ");
         labelEmail = new JLabel("Email: ");
+        labelErro = new JLabel("Registro já existente");
+        labelErro.setForeground(Color.RED);
 
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelErro.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarTextos(){
@@ -95,6 +99,7 @@ public class JanelaAluno extends JFrame {
         criarPainelMatricula();
         criarPainelNome();
         criarPainelEmail();
+        criaPainelErro();
         criarPainelBotoes();
         criarPainelPrincipal();
         criarPainelScroll();
@@ -130,6 +135,12 @@ public class JanelaAluno extends JFrame {
         painelEmail.add(textoEmail);
     }
 
+    private void criaPainelErro(){
+        painelErro = new JPanel();
+        painelErro.setLayout(new BoxLayout(painelErro, BoxLayout.Y_AXIS));
+        painelErro.add(labelErro);
+    }
+
     private void criarPainelBotoes(){
         painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.X_AXIS));
@@ -152,6 +163,8 @@ public class JanelaAluno extends JFrame {
         painelPrincipal.add(painelNome, BorderLayout.WEST);
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelEmail, BorderLayout.WEST);
+        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelPrincipal.add(painelErro, BorderLayout.WEST);
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelBotoes, BorderLayout.WEST);
         painelPrincipal.setBorder(new EmptyBorder(15,15,15,15));
@@ -220,6 +233,10 @@ public class JanelaAluno extends JFrame {
 
     public JTable getTabela() {
         return tabela;
+    }
+
+    public static void main(String[] args) {
+        JanelaAluno janelaAluno = new JanelaAluno();
     }
 
 }
