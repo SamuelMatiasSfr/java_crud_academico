@@ -25,6 +25,7 @@ public class AlunoController{
     }
 
     private void definirDadosDaTabela(){
+        this.alunos.clear();
         this.alunos = this.alunoRepository.getTodos();
 
         Object [][] dados = new Object[alunos.size()][4];
@@ -69,8 +70,14 @@ public class AlunoController{
             }
         );
 
-
-        //deletar
+        janelaAluno.getBotaoDelete().addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evento){
+                    deletarAluno();
+                }
+            }
+        );
 
     }
 
@@ -109,11 +116,20 @@ public class AlunoController{
                     aluno.setNome(nome);
                     aluno.setEmail(email);
                     alunoRepository.update(aluno);
+                    definirDadosDaTabela();
                 }
             }
         }
+    }
 
-        definirDadosDaTabela();
+    public void deletarAluno(){
+        int id = Integer.parseInt(janelaAluno.getTextoId().getText());
+        for(int i=0; i<alunos.size(); i++){
+            if(id == alunos.get(i).getId()){
+                alunoRepository.delete(id);
+                definirDadosDaTabela();
+            }
+        }
     }
 
     public static void main(String[] args) {
