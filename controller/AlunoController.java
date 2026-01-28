@@ -153,10 +153,4 @@ public class AlunoController{
         janelaAluno.getTextoEmail().setText("");
     }
 
-    public static void main(String[] args) {
-        AlunoRepository alunoRepository = new AlunoRepository();
-        JanelaAluno janelaAluno = new JanelaAluno();
-        AlunoController alunoController = new AlunoController(alunoRepository, janelaAluno);
-    }
-
 }
