@@ -15,8 +15,6 @@ import javax.swing.JTable;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.sql.Array;
-import java.util.ArrayList;
 
 public class JanelaAluno extends JFrame {
 
@@ -60,6 +58,7 @@ public class JanelaAluno extends JFrame {
 
     private void criarTextos(){
         textoId = new JTextField("");
+        textoId.setEnabled(false);
         textoMatricula = new JTextField("");
         textoNome = new JTextField("");
         textoEmail = new JTextField("");
@@ -160,29 +159,14 @@ public class JanelaAluno extends JFrame {
     }
 
     public void definirTabela(Object [][] dados){
+        for(int i=0; i<tabelaModel.getRowCount(); i++){
+            tabelaModel.removeRow(i);
+        }
+        
         for(int i=0; i<dados.length; i++){
             tabelaModel.addRow(dados[i]);
         }
         tabela.setModel(tabelaModel);
-        /* 
-        Object [][] dados = {
-            {"1", "2026001", "Alana", "alana@gmail.com"},
-            {"2", "2026002", "Lucas", "lucas@gmail.com"},
-            {"3", "2026003", "Daniel", "daniel@gmail.com"},
-            {"4", "2026004", "Mariana", "mariana@gmail.com"},
-            {"5", "2026005", "Pedro", "pedro@gmail.com"},
-            {"6", "2026006", "Carla", "carla@gmail.com"},
-            {"7", "2026007", "Rafael", "rafael@gmail.com"},
-            {"8", "2026008", "Beatriz", "beatriz@gmail.com"},
-            {"9", "2026009", "João", "joao@gmail.com"},
-            {"10", "2026010", "Fernanda", "fernanda@gmail.com"},
-            {"11", "2026011", "Bruno", "bruno@gmail.com"},
-            {"12", "2026012", "Camila", "camila@gmail.com"},
-            {"13", "2026013", "Thiago", "thiago@gmail.com"},
-            {"14", "2026014", "Larissa", "larissa@gmail.com"},
-            {"15", "2026015", "Gabriel", "gabriel@gmail.com"}
-        };
-        */
     }
 
     public JButton getBotaoCreate() {

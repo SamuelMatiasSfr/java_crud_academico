@@ -60,7 +60,15 @@ public class AlunoController{
             }
         );
 
-        //atualizar
+        janelaAluno.getBotaoUpdate().addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evento){
+                    atualizarAluno();
+                }
+            }
+        );
+
 
         //deletar
 
@@ -85,6 +93,27 @@ public class AlunoController{
         String nome = janelaAluno.getTextoNome().getText();
         String email = janelaAluno.getTextoEmail().getText();
         alunoRepository.create(new Aluno(0, matricula, nome, email));
+    }
+
+    public void atualizarAluno(){
+        int id = Integer.parseInt(janelaAluno.getTextoId().getText());
+        int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());        
+        String nome = janelaAluno.getTextoNome().getText();
+        String email = janelaAluno.getTextoEmail().getText();
+
+        for(int i=0; i<alunos.size(); i++){
+            if(id == alunos.get(i).getId()){
+                Aluno aluno = alunoRepository.read(id);
+                if(aluno != null){
+                    aluno.setMatricula(matricula);
+                    aluno.setNome(nome);
+                    aluno.setEmail(email);
+                    alunoRepository.update(aluno);
+                }
+            }
+        }
+
+        definirDadosDaTabela();
     }
 
     public static void main(String[] args) {
