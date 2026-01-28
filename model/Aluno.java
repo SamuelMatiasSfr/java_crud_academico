@@ -30,4 +30,16 @@ public class Aluno{
         return email;
     }
 
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

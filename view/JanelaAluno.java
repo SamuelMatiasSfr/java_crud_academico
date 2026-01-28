@@ -18,17 +18,17 @@ import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelMatricula, labelNome, labelEmail;
-    private JTextField textoMatricula, textoNome, textoEmail;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail;
+    private JTextField textoId, textoMatricula, textoNome, textoEmail;
     private JButton botaoCreate, botaoUpdate, botaoDelete;
-    private JPanel painelPrincipal, painelMatricula, painelNome, painelEmail, painelBotoes;
+    private JPanel painelPrincipal, painelId, painelMatricula, painelNome, painelEmail, painelBotoes;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
     private JScrollPane painelScroll;
 
     public JanelaAluno(){
         super("Gerenciador Alunos");
-        setSize(750,300);
+        setSize(750,350);
         setLocationRelativeTo(null);
 
         criarComponentes();
@@ -45,23 +45,29 @@ public class JanelaAluno extends JFrame {
     }
 
     private void criarLabels(){
+        labelId = new JLabel("Identificador: ");
         labelMatricula = new JLabel("Matrícula: ");
         labelNome = new JLabel("Nome: ");
         labelEmail = new JLabel("Email: ");
 
+        labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarTextos(){
+        textoId = new JTextField("");
         textoMatricula = new JTextField("");
         textoNome = new JTextField("");
         textoEmail = new JTextField("");
 
+        textoId.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        textoId.setEnabled(false);
     }
 
     private void criarBotoes(){
@@ -75,30 +81,32 @@ public class JanelaAluno extends JFrame {
     }
 
     private void criarTabela(){
-        String [] colunas = {"Matrícula", "Nome", "Email"};
+        String [] colunas = {"Identificador", "Matrícula", "Nome", "Email"};
         Object [][] dados = {
-            {"2026001", "Alana", "alana@gmail.com"},
-            {"2026002", "Lucas", "lucas@gmail.com"},
-            {"2026003", "Daniel", "daniel@gmail.com"},
-            {"2026004", "Mariana", "mariana@gmail.com"},
-            {"2026005", "Pedro", "pedro@gmail.com"},
-            {"2026006", "Carla", "carla@gmail.com"},
-            {"2026007", "Rafael", "rafael@gmail.com"},
-            {"2026008", "Beatriz", "beatriz@gmail.com"},
-            {"2026009", "João", "joao@gmail.com"},
-            {"2026010", "Fernanda", "fernanda@gmail.com"},
-            {"2026011", "Bruno", "bruno@gmail.com"},
-            {"2026012", "Camila", "camila@gmail.com"},
-            {"2026013", "Thiago", "thiago@gmail.com"},
-            {"2026014", "Larissa", "larissa@gmail.com"},
-            {"2026015", "Gabriel", "gabriel@gmail.com"}
+            {"1", "2026001", "Alana", "alana@gmail.com"},
+            {"2", "2026002", "Lucas", "lucas@gmail.com"},
+            {"3", "2026003", "Daniel", "daniel@gmail.com"},
+            {"4", "2026004", "Mariana", "mariana@gmail.com"},
+            {"5", "2026005", "Pedro", "pedro@gmail.com"},
+            {"6", "2026006", "Carla", "carla@gmail.com"},
+            {"7", "2026007", "Rafael", "rafael@gmail.com"},
+            {"8", "2026008", "Beatriz", "beatriz@gmail.com"},
+            {"9", "2026009", "João", "joao@gmail.com"},
+            {"10", "2026010", "Fernanda", "fernanda@gmail.com"},
+            {"11", "2026011", "Bruno", "bruno@gmail.com"},
+            {"12", "2026012", "Camila", "camila@gmail.com"},
+            {"13", "2026013", "Thiago", "thiago@gmail.com"},
+            {"14", "2026014", "Larissa", "larissa@gmail.com"},
+            {"15", "2026015", "Gabriel", "gabriel@gmail.com"}
         };
 
         tabelaModel = new DefaultTableModel(dados, colunas);
         tabela = new JTable(tabelaModel);
+        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
     }
 
     private void criarPaneis(){
+        criarPainelId();
         criarPainelMatricula();
         criarPainelNome();
         criarPainelEmail();
@@ -107,6 +115,13 @@ public class JanelaAluno extends JFrame {
         criarPainelScroll();
         add(painelPrincipal, BorderLayout.WEST);
         add(painelScroll, BorderLayout.EAST);
+    }
+
+    private void criarPainelId(){
+        painelId = new JPanel();
+        painelId.setLayout(new BoxLayout(painelId, BoxLayout.Y_AXIS));
+        painelId.add(labelId);
+        painelId.add(textoId);
     }
 
     private void criarPainelMatricula(){
@@ -143,7 +158,8 @@ public class JanelaAluno extends JFrame {
     private void criarPainelPrincipal(){
         painelPrincipal = new JPanel();
         painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.PAGE_AXIS));
-        painelPrincipal.add(Box.createVerticalBox());
+        painelPrincipal.add(painelId, BorderLayout.WEST);
+        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelMatricula, BorderLayout.WEST);
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
         painelPrincipal.add(painelNome, BorderLayout.WEST);
@@ -169,6 +185,14 @@ public class JanelaAluno extends JFrame {
 
     public JButton getBotaoDelete() {
         return botaoDelete;
+    }
+
+    public JTextField getTextoId() {
+        return textoId;
+    }
+
+    public void setTextoId(JTextField textoId) {
+        this.textoId = textoId;
     }
 
     public JTextField getTextoMatricula() {
