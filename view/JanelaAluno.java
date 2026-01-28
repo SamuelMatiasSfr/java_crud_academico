@@ -20,7 +20,7 @@ public class JanelaAluno extends JFrame {
 
     private JLabel labelId, labelMatricula, labelNome, labelEmail;
     private JTextField textoId, textoMatricula, textoNome, textoEmail;
-    private JButton botaoCreate, botaoUpdate, botaoDelete;
+    private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar;
     private JPanel painelPrincipal, painelId, painelMatricula, painelNome, painelEmail, painelBotoes;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
@@ -28,7 +28,7 @@ public class JanelaAluno extends JFrame {
 
     public JanelaAluno(){
         super("Gerenciador Alunos");
-        setSize(750,350);
+        setSize(900,350);
         setLocationRelativeTo(null);
 
         criarComponentes();
@@ -73,10 +73,12 @@ public class JanelaAluno extends JFrame {
         botaoCreate = new JButton("Create");
         botaoUpdate = new JButton("Update");
         botaoDelete = new JButton("Delete");
+        botaoLimpar = new JButton("Limpar campos");
 
         botaoCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoLimpar.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarTabela(){
@@ -136,6 +138,8 @@ public class JanelaAluno extends JFrame {
         painelBotoes.add(botaoUpdate);
         painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBotoes.add(botaoDelete);
+        painelBotoes.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBotoes.add(botaoLimpar);
     }
 
     private void criarPainelPrincipal(){
@@ -176,6 +180,10 @@ public class JanelaAluno extends JFrame {
 
     public JButton getBotaoDelete() {
         return botaoDelete;
+    }
+
+    public JButton getBotaoLimpar() {
+        return botaoLimpar;
     }
 
     public JTextField getTextoId() {

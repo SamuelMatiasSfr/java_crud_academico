@@ -47,6 +47,7 @@ public class AlunoController{
                 public void mouseClicked(MouseEvent evento){
                     if(evento.getClickCount() == 1){
                         pegarDadosDaLinhaDaTabela();
+                        janelaAluno.getBotaoLimpar().setVisible(true);
                     }
                 }
             }
@@ -77,6 +78,15 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     deletarAluno();
+                    limparCamposDeTexto();
+                }
+            }
+        );
+
+        janelaAluno.getBotaoLimpar().addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evento){
                     limparCamposDeTexto();
                 }
             }
