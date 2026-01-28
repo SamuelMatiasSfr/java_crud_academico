@@ -159,10 +159,7 @@ public class JanelaAluno extends JFrame {
     }
 
     public void definirTabela(Object [][] dados){
-        for(int i=0; i<tabelaModel.getRowCount(); i++){
-            tabelaModel.removeRow(i);
-        }
-        
+        tabelaModel.setRowCount(0);
         for(int i=0; i<dados.length; i++){
             tabelaModel.addRow(dados[i]);
         }
