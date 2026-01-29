@@ -19,7 +19,7 @@ import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBuscar;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBuscar, labelDigiteMatricula;
     private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBuscar;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
     private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBuscar;
@@ -54,6 +54,7 @@ public class JanelaAluno extends JFrame {
         labelErroCrud.setForeground(Color.RED);
         labelErroBuscar = new JLabel("Registro Inexistente");
         labelErroBuscar.setForeground(Color.RED);
+        labelDigiteMatricula = new JLabel("Digite matrícula:");
 
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -61,6 +62,7 @@ public class JanelaAluno extends JFrame {
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelErroCrud.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelErroBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelDigiteMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         labelErroCrud.setVisible(false);
         labelErroBuscar.setVisible(false);
@@ -189,6 +191,8 @@ public class JanelaAluno extends JFrame {
     private void criarPainelBuscar(){
         painelBuscar = new JPanel();
         painelBuscar.setLayout(new BoxLayout(painelBuscar, BoxLayout.X_AXIS));
+        painelBuscar.add(labelDigiteMatricula);
+        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBuscar.add(textoBuscar);
         painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBuscar.add(botaoBuscar);

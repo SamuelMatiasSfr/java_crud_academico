@@ -52,6 +52,28 @@ public class AlunoRepository {
         return aluno;
     }
 
+    public Boolean readPorMatricula(int matricula){
+        boolean existe = false;
+
+        String sql = "SELECT * FROM alunos WHERE matricula = ?";    
+
+        try { 
+            Connection conexao = Conexao.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, matricula);
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                existe = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return existe;
+    }
+
     public void update(Aluno aluno){
         String sql = "UPDATE alunos SET matricula = ?, nome = ?, email = ? WHERE id = ?";
 

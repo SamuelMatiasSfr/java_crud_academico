@@ -143,8 +143,11 @@ public class AlunoController{
         int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());
         String nome = janelaAluno.getTextoNome().getText();
         String email = janelaAluno.getTextoEmail().getText();
-        alunoRepository.create(new Aluno(0, matricula, nome, email));
-        definirDadosDaTabela();
+
+        if(!alunoRepository.readPorMatricula(matricula)){
+            alunoRepository.create(new Aluno(0, matricula, nome, email));
+            definirDadosDaTabela();
+        }
     }
 
     private void atualizarAluno(){
