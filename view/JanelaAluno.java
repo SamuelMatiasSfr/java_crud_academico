@@ -52,7 +52,7 @@ public class JanelaAluno extends JFrame {
         labelEmail = new JLabel("Email: ");
         labelErroCrud = new JLabel("");
         labelErroCrud.setForeground(Color.RED);
-        labelErroBuscar = new JLabel("Registro não encontrado.");
+        labelErroBuscar = new JLabel("");
         labelErroBuscar.setForeground(Color.RED);
         labelDigiteMatricula = new JLabel("Digite matrícula:");
 

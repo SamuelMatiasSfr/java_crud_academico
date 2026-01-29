@@ -5,6 +5,9 @@ import view.JanelaAluno;
 import model.Aluno;
 
 import java.util.ArrayList;
+
+import javax.swing.text.html.HTMLDocument.BlockElement;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -99,7 +102,10 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    selecionarLinhaNaTabela();
+                    if(!verificaErrosBuscar()){
+                        int linha = procurarLinhaNaTabela();
+                        janelaAluno.getTabela().setRowSelectionInterval(linha, linha);
+                    }
                 }
             }
         );
@@ -120,26 +126,20 @@ public class AlunoController{
         }
     }
 
-    private void selecionarLinhaNaTabela(){
+    private Integer procurarLinhaNaTabela(){
         String matriculaBuscada = janelaAluno.getTextoBuscar().getText();
 
-        boolean encontrou = false;
+        int linha = -1;
         int quantLinhas = janelaAluno.getTabela().getRowCount();
         for(int i=0; i<quantLinhas; i++){
             String matriculaLinha = janelaAluno.getTabela().getValueAt(i, 1).toString();
             if(matriculaLinha.equals(matriculaBuscada)){
-                janelaAluno.getTabela().setRowSelectionInterval(i, i);
-                encontrou = true;
+                linha = i;
                 break;
             }
         }
 
-        if(!encontrou){
-            janelaAluno.getLabelErroBuscar().setVisible(true);
-        }else{
-            janelaAluno.getLabelErroBuscar().setVisible(false);
-        }
-
+        return linha;
     }
 
     private void salvarAluno(){
@@ -216,6 +216,33 @@ public class AlunoController{
 
         if(temErro){
             janelaAluno.getLabelErroCrud().setVisible(true);
+        }else{
+            janelaAluno.getLabelErroCrud().setVisible(false);
+        }
+
+        return temErro;
+    }
+
+    private Boolean verificaErrosBuscar(){
+        boolean temErro = false;
+
+        if(janelaAluno.getTextoBuscar().getText().equals("")){
+            janelaAluno.getLabelErroBuscar().setText("Preencha o campo.");
+            temErro = true;
+        }
+
+        if(!janelaAluno.getTextoBuscar().getText().equals("")){
+            int linha = procurarLinhaNaTabela();
+            if(linha == -1){
+                janelaAluno.getLabelErroBuscar().setText("Registro não encontrado.");
+                temErro = true;
+            }
+        }
+
+        if(temErro){
+            janelaAluno.getLabelErroBuscar().setVisible(true);
+        }else{
+            janelaAluno.getLabelErroBuscar().setVisible(false);
         }
 
         return temErro;
