@@ -20,9 +20,9 @@ import java.awt.Dimension;
 public class JanelaAluno extends JFrame {
 
     private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErro;
-    private JTextField textoId, textoMatricula, textoNome, textoEmail;
-    private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar;
-    private JPanel painelPrincipal, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes;
+    private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBuscar;
+    private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
+    private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBuscar;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
     private JScrollPane painelScroll;
@@ -66,11 +66,13 @@ public class JanelaAluno extends JFrame {
         textoMatricula = new JTextField("");
         textoNome = new JTextField("");
         textoEmail = new JTextField("");
+        textoBuscar = new JTextField("");
 
         textoId.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textoBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarBotoes(){
@@ -78,11 +80,13 @@ public class JanelaAluno extends JFrame {
         botaoUpdate = new JButton("Update");
         botaoDelete = new JButton("Delete");
         botaoLimpar = new JButton("Limpar campos");
+        botaoBuscar = new JButton("Buscar");
 
         botaoCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoUpdate.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoLimpar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarTabela(){
@@ -101,10 +105,12 @@ public class JanelaAluno extends JFrame {
         criarPainelEmail();
         criaPainelErro();
         criarPainelBotoes();
-        criarPainelPrincipal();
+        criarPainelEsquerdo();
         criarPainelScroll();
-        add(painelPrincipal, BorderLayout.WEST);
-        add(painelScroll, BorderLayout.EAST);
+        criarPainelBuscar();
+        criarPainelDireito();
+        add(painelEsquerdo, BorderLayout.WEST);
+        add(painelDireito, BorderLayout.EAST);
     }
 
     private void criarPainelId(){
@@ -153,26 +159,42 @@ public class JanelaAluno extends JFrame {
         painelBotoes.add(botaoLimpar);
     }
 
-    private void criarPainelPrincipal(){
-        painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BoxLayout(painelPrincipal, BoxLayout.PAGE_AXIS));
-        painelPrincipal.add(painelId, BorderLayout.WEST);
-        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelPrincipal.add(painelMatricula, BorderLayout.WEST);
-        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelPrincipal.add(painelNome, BorderLayout.WEST);
-        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelPrincipal.add(painelEmail, BorderLayout.WEST);
-        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelPrincipal.add(painelErro, BorderLayout.WEST);
-        painelPrincipal.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelPrincipal.add(painelBotoes, BorderLayout.WEST);
-        painelPrincipal.setBorder(new EmptyBorder(15,15,15,15));
+    private void criarPainelEsquerdo(){
+        painelEsquerdo = new JPanel();
+        painelEsquerdo.setLayout(new BoxLayout(painelEsquerdo, BoxLayout.PAGE_AXIS));
+        painelEsquerdo.add(painelId, BorderLayout.WEST);
+        painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelEsquerdo.add(painelMatricula, BorderLayout.WEST);
+        painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelEsquerdo.add(painelNome, BorderLayout.WEST);
+        painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelEsquerdo.add(painelEmail, BorderLayout.WEST);
+        painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelEsquerdo.add(painelErro, BorderLayout.WEST);
+        painelEsquerdo.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelEsquerdo.add(painelBotoes, BorderLayout.WEST);
+        painelEsquerdo.setBorder(new EmptyBorder(15,15,15,15));
     }
 
     private void criarPainelScroll(){
         painelScroll = new JScrollPane(tabela);
-        painelScroll.setBorder(new EmptyBorder(15,0,15,15));
+    }
+
+    private void criarPainelBuscar(){
+        painelBuscar = new JPanel();
+        painelBuscar.setLayout(new BoxLayout(painelBuscar, BoxLayout.X_AXIS));
+        painelBuscar.add(textoBuscar);
+        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBuscar.add(botaoBuscar);
+    }
+
+    private void criarPainelDireito(){
+        painelDireito = new JPanel();
+        painelDireito.setLayout(new BoxLayout(painelDireito, BoxLayout.PAGE_AXIS));
+        painelDireito.add(painelScroll, BorderLayout.EAST);
+        painelDireito.add(Box.createRigidArea(new Dimension(0, 15)));
+        painelDireito.add(painelBuscar, BorderLayout.EAST);
+        painelDireito.setBorder(new EmptyBorder(15,0,15,15));
     }
 
     public void definirTabela(Object [][] dados){
