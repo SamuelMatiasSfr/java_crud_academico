@@ -19,7 +19,7 @@ import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErro;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBuscar;
     private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBuscar;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
     private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBuscar;
@@ -50,14 +50,20 @@ public class JanelaAluno extends JFrame {
         labelMatricula = new JLabel("Matrícula: ");
         labelNome = new JLabel("Nome: ");
         labelEmail = new JLabel("Email: ");
-        labelErro = new JLabel("Registro já existente");
-        labelErro.setForeground(Color.RED);
+        labelErroCrud = new JLabel("Registro já existente");
+        labelErroCrud.setForeground(Color.RED);
+        labelErroBuscar = new JLabel("Registro Inexistente");
+        labelErroBuscar.setForeground(Color.RED);
 
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelErro.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelErroCrud.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelErroBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        labelErroCrud.setVisible(false);
+        labelErroBuscar.setVisible(false);
     }
 
     private void criarTextos(){
@@ -144,7 +150,7 @@ public class JanelaAluno extends JFrame {
     private void criaPainelErro(){
         painelErro = new JPanel();
         painelErro.setLayout(new BoxLayout(painelErro, BoxLayout.Y_AXIS));
-        painelErro.add(labelErro);
+        painelErro.add(labelErroCrud);
     }
 
     private void criarPainelBotoes(){
@@ -186,6 +192,8 @@ public class JanelaAluno extends JFrame {
         painelBuscar.add(textoBuscar);
         painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBuscar.add(botaoBuscar);
+        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBuscar.add(labelErroBuscar);
     }
 
     private void criarPainelDireito(){
@@ -205,6 +213,14 @@ public class JanelaAluno extends JFrame {
         tabela.setModel(tabelaModel);
     }
 
+    public JLabel getLabelErroCrud() {
+        return labelErroCrud;
+    }
+
+    public JLabel getLabelErroBuscar() {
+        return labelErroBuscar;
+    }
+
     public JButton getBotaoCreate() {
         return botaoCreate;
     }
@@ -219,6 +235,10 @@ public class JanelaAluno extends JFrame {
 
     public JButton getBotaoLimpar() {
         return botaoLimpar;
+    }
+
+    public JButton getBotaoBuscar() {
+        return botaoBuscar;
     }
 
     public JTextField getTextoId() {
@@ -253,12 +273,16 @@ public class JanelaAluno extends JFrame {
         this.textoEmail = textoEmail;
     }
 
-    public JTable getTabela() {
-        return tabela;
+    public JTextField getTextoBuscar() {
+        return textoBuscar;
     }
 
-    public static void main(String[] args) {
-        JanelaAluno janelaAluno = new JanelaAluno();
+    public void setTextoBuscar(JTextField textoBuscar) {
+        this.textoBuscar = textoBuscar;
+    }
+
+    public JTable getTabela() {
+        return tabela;
     }
 
 }

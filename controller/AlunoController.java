@@ -92,6 +92,15 @@ public class AlunoController{
             }
         );
 
+        janelaAluno.getBotaoBuscar().addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evento){
+                    buscarLinhaNaTabela();
+                }
+            }
+        );
+
     }
 
     private void pegarDadosDaLinhaDaTabela(){
@@ -106,6 +115,28 @@ public class AlunoController{
             janelaAluno.getTextoNome().setText(nome);
             janelaAluno.getTextoEmail().setText(email);
         }
+    }
+
+    private void buscarLinhaNaTabela(){
+        String matriculaBuscada = janelaAluno.getTextoBuscar().getText();
+
+        boolean encontrou = false;
+        int quantLinhas = janelaAluno.getTabela().getRowCount();
+        for(int i=0; i<quantLinhas; i++){
+            String matriculaLinha = janelaAluno.getTabela().getValueAt(i, 1).toString();
+            if(matriculaLinha.equals(matriculaBuscada)){
+                janelaAluno.getTabela().setRowSelectionInterval(i, i);
+                encontrou = true;
+                break;
+            }
+        }
+
+        if(!encontrou){
+            janelaAluno.getLabelErroBuscar().setVisible(true);
+        }else{
+            janelaAluno.getLabelErroBuscar().setVisible(false);
+        }
+
     }
 
     private void salvarAluno(){
@@ -151,6 +182,12 @@ public class AlunoController{
         janelaAluno.getTextoMatricula().setText("");
         janelaAluno.getTextoNome().setText("");
         janelaAluno.getTextoEmail().setText("");
+    }
+
+    public static void main(String[] args) {
+        AlunoRepository alunoRepository = new AlunoRepository();
+        JanelaAluno janelaAluno = new JanelaAluno();
+        AlunoController alunoController = new AlunoController(alunoRepository, janelaAluno);
     }
 
 }
