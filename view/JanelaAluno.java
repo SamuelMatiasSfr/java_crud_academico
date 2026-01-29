@@ -50,9 +50,9 @@ public class JanelaAluno extends JFrame {
         labelMatricula = new JLabel("Matrícula: ");
         labelNome = new JLabel("Nome: ");
         labelEmail = new JLabel("Email: ");
-        labelErroCrud = new JLabel("Registro já existente");
+        labelErroCrud = new JLabel("");
         labelErroCrud.setForeground(Color.RED);
-        labelErroBuscar = new JLabel("Registro Inexistente");
+        labelErroBuscar = new JLabel("Registro não encontrado.");
         labelErroBuscar.setForeground(Color.RED);
         labelDigiteMatricula = new JLabel("Digite matrícula:");
 

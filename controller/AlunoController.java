@@ -57,8 +57,11 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    salvarAluno();
-                    limparCamposDeTexto();
+                    if(!verificaErrosCrud()){
+                        salvarAluno();
+                        definirDadosDaTabela();
+                        limparCamposDeTexto();
+                    }
                 }
             }
         );
@@ -96,7 +99,7 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    buscarLinhaNaTabela();
+                    selecionarLinhaNaTabela();
                 }
             }
         );
@@ -117,7 +120,7 @@ public class AlunoController{
         }
     }
 
-    private void buscarLinhaNaTabela(){
+    private void selecionarLinhaNaTabela(){
         String matriculaBuscada = janelaAluno.getTextoBuscar().getText();
 
         boolean encontrou = false;
@@ -143,11 +146,7 @@ public class AlunoController{
         int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());
         String nome = janelaAluno.getTextoNome().getText();
         String email = janelaAluno.getTextoEmail().getText();
-
-        if(!alunoRepository.readPorMatricula(matricula)){
-            alunoRepository.create(new Aluno(0, matricula, nome, email));
-            definirDadosDaTabela();
-        }
+        alunoRepository.create(new Aluno(0, matricula, nome, email));
     }
 
     private void atualizarAluno(){
@@ -185,6 +184,41 @@ public class AlunoController{
         janelaAluno.getTextoMatricula().setText("");
         janelaAluno.getTextoNome().setText("");
         janelaAluno.getTextoEmail().setText("");
+        janelaAluno.getLabelErroCrud().setVisible(false);
+    }
+
+    private Boolean verificaErrosCrud(){
+        boolean temErro = false;
+
+        if(
+            janelaAluno.getTextoMatricula().getText().equals("") ||
+            janelaAluno.getTextoNome().getText().equals("") ||
+            janelaAluno.getTextoEmail().getText().equals("")
+        ){
+            janelaAluno.getLabelErroCrud().setText("Preencha todos os campos obrigatórios.");
+            temErro = true;
+        }
+
+        if(
+            /* 
+            Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em create.
+            Dessa forma, ao apertar em update, esse erro não será acionado.
+            */
+            janelaAluno.getTextoId().getText().equals("") &&
+            !janelaAluno.getTextoMatricula().getText().equals("") &&
+            alunoRepository.readPorMatricula(Integer.parseInt(janelaAluno.getTextoMatricula().getText()))
+        ){
+            janelaAluno.getLabelErroCrud().setText("Já existe um aluno cadastrado com esta matrícula.");
+            temErro = true;
+        }
+
+        //erro ao atualizar
+
+        if(temErro){
+            janelaAluno.getLabelErroCrud().setVisible(true);
+        }
+
+        return temErro;
     }
 
     public static void main(String[] args) {
