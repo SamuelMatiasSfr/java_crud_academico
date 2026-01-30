@@ -159,11 +159,7 @@ public class AlunoController{
     private void deletarAluno(){
         String[] dados = janelaAluno.getDadosFormulario();
         int id = Integer.parseInt(dados[0]);
-        for(int i=0; i<alunos.size(); i++){
-            if(id == alunos.get(i).getId()){
-                alunoRepository.delete(id);
-            }
-        }
+        alunoRepository.delete(id);
     }
 
     private Boolean verificarErrosFormulario(){
