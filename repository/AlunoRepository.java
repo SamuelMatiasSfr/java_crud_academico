@@ -26,9 +26,10 @@ public class AlunoRepository {
 
     }
 
-    public Aluno read(int id){
+    public Boolean read(int id){
         String sql = "SELECT * FROM alunos WHERE id = ?";    
-        Aluno aluno = null;
+        //Aluno aluno = null;
+        boolean alunoExiste = false;
 
         try { 
             Connection conexao = Conexao.getConexao();
@@ -37,19 +38,14 @@ public class AlunoRepository {
             ResultSet result = stmt.executeQuery();
 
             if(result.next()){
-                aluno = new Aluno(
-                    result.getInt("id"), 
-                    result.getInt("matricula"), 
-                    result.getString("nome"), 
-                    result.getString("email")
-                );
+                alunoExiste = true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return aluno;
+        return alunoExiste;
     }
 
     public Boolean readPorMatricula(int matricula){

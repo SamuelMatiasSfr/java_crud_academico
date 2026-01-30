@@ -142,18 +142,8 @@ public class AlunoController{
         int matricula = Integer.parseInt(dados[1]);
         String nome = dados[2];
         String email = dados[3];
-
-        for(int i=0; i<alunos.size(); i++){
-            if(id == alunos.get(i).getId()){
-                Aluno aluno = alunoRepository.read(id);
-                if(aluno != null){
-                    aluno.setMatricula(matricula);
-                    aluno.setNome(nome);
-                    aluno.setEmail(email);
-                    alunoRepository.update(aluno);
-                }
-            }
-        }
+        Aluno aluno = new Aluno(id, matricula, nome, email);
+        alunoRepository.update(aluno);
     }
 
     private void deletarAluno(){
