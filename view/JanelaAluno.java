@@ -245,9 +245,10 @@ public class JanelaAluno extends JFrame {
         return botaoBuscar;
     }
 
+    /* 
     public JTextField getTextoId() {
         return textoId;
-    }
+    }*/
 
     public void setTextoId(JTextField textoId) {
         this.textoId = textoId;
@@ -287,6 +288,74 @@ public class JanelaAluno extends JFrame {
 
     public JTable getTabela() {
         return tabela;
+    }
+
+    public String[] getDadosFormulario(){
+        return new String[]{
+            textoId.getText(),
+            textoMatricula.getText(),
+            textoNome.getText(),
+            textoEmail.getText()
+        };
+    }
+
+    public String getDadoBusca(){
+        return textoBuscar.getText();
+    }
+
+    public void setDadosFormulario(){
+        int linha = tabela.getSelectedRow();
+        if(linha >= 0){
+            String id = tabela.getValueAt(linha, 0).toString();
+            String matricula = tabela.getValueAt(linha, 1).toString();
+            String nome = tabela.getValueAt(linha, 2).toString();
+            String email = tabela.getValueAt(linha,3).toString();
+            textoId.setText(id);
+            textoMatricula.setText(matricula);
+            textoNome.setText(nome);
+            textoEmail.setText(email);
+        }
+    }
+
+    public void limparCamposFormulario(){
+        textoId.setText("");
+        textoMatricula.setText("");
+        textoNome.setText("");
+        textoEmail.setText("");
+    }
+
+    public void limparCampoBusca(){
+        textoBuscar.setText("");
+    }
+
+    public void mostrarErroFormulario(String erro){
+        labelErroCrud.setText(erro);
+        labelErroCrud.setVisible(true);
+    }
+
+    public void ocultarErroFormulario(){
+        labelErroCrud.setVisible(false);
+    }
+
+    public void mostrarErroBusca(String erro){
+        labelErroBuscar.setText(erro);
+        labelErroBuscar.setVisible(true);
+    }
+
+    public void ocultarErroBusca(){
+        labelErroBuscar.setVisible(false);
+    }
+
+    public int getQuantLinhasTabela(){
+        return tabela.getRowCount();
+    }
+
+    public String getMatriculaLinhaTabela(int linha){
+        return tabela.getValueAt(linha, 1).toString();
+    }
+
+    public void selecionarLinhaTabela(int linha){
+        tabela.setRowSelectionInterval(linha, linha);
     }
 
 }

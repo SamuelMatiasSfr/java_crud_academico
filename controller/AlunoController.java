@@ -22,10 +22,10 @@ public class AlunoController{
         this.janelaAluno = janelaAluno;
         this.alunos = new ArrayList<>();
         definirListeners();
-        definirDadosDaTabela();
+        atualizarTabela();
     }
 
-    private void definirDadosDaTabela(){
+    private void atualizarTabela(){
         this.alunos.clear();
         this.alunos = this.alunoRepository.getTodos();
 
@@ -47,8 +47,7 @@ public class AlunoController{
                 @Override
                 public void mouseClicked(MouseEvent evento){
                     if(evento.getClickCount() == 1){
-                        pegarDadosDaLinhaDaTabela();
-                        janelaAluno.getBotaoLimpar().setVisible(true);
+                        janelaAluno.setDadosFormulario();
                     }
                 }
             }
@@ -58,10 +57,10 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    if(!verificaErrosCrud()){
+                    if(!verificarErrosFormulario()){
                         salvarAluno();
-                        definirDadosDaTabela();
-                        limparCamposDeTexto();
+                        atualizarTabela();
+                        janelaAluno.limparCamposFormulario();
                     }
                 }
             }
@@ -72,7 +71,8 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     atualizarAluno();
-                    limparCamposDeTexto();
+                    atualizarTabela();
+                    janelaAluno.limparCamposFormulario();
                 }
             }
         );
@@ -82,7 +82,8 @@ public class AlunoController{
                 @Override
                 public void actionPerformed(ActionEvent evento){
                     deletarAluno();
-                    limparCamposDeTexto();
+                    atualizarTabela();
+                    janelaAluno.limparCamposFormulario();
                 }
             }
         );
@@ -91,7 +92,8 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    limparCamposDeTexto();
+                    janelaAluno.limparCamposFormulario();
+                    janelaAluno.ocultarErroFormulario();
                 }
             }
         );
@@ -100,9 +102,9 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    if(!verificaErrosBuscar()){
-                        int linha = procurarLinhaNaTabela();
-                        janelaAluno.getTabela().setRowSelectionInterval(linha, linha);
+                    if(!verificarErrosBusca()){
+                        int linha = procurarLinhaTabela();
+                        janelaAluno.selecionarLinhaTabela(linha);
                     }
                 }
             }
@@ -110,27 +112,13 @@ public class AlunoController{
 
     }
 
-    private void pegarDadosDaLinhaDaTabela(){
-        int linha = janelaAluno.getTabela().getSelectedRow();
-        if(linha >= 0){
-            String id = janelaAluno.getTabela().getValueAt(linha, 0).toString();
-            String matricula = janelaAluno.getTabela().getValueAt(linha, 1).toString();
-            String nome = janelaAluno.getTabela().getValueAt(linha, 2).toString();
-            String email = janelaAluno.getTabela().getValueAt(linha,3).toString();
-            janelaAluno.getTextoId().setText(id);
-            janelaAluno.getTextoMatricula().setText(matricula);
-            janelaAluno.getTextoNome().setText(nome);
-            janelaAluno.getTextoEmail().setText(email);
-        }
-    }
-
-    private Integer procurarLinhaNaTabela(){
-        String matriculaBuscada = janelaAluno.getTextoBuscar().getText();
+    private Integer procurarLinhaTabela(){
+        String matriculaBuscada = janelaAluno.getDadoBusca();
 
         int linha = -1;
-        int quantLinhas = janelaAluno.getTabela().getRowCount();
+        int quantLinhas = janelaAluno.getQuantLinhasTabela();
         for(int i=0; i<quantLinhas; i++){
-            String matriculaLinha = janelaAluno.getTabela().getValueAt(i, 1).toString();
+            String matriculaLinha = janelaAluno.getMatriculaLinhaTabela(i);
             if(matriculaLinha.equals(matriculaBuscada)){
                 linha = i;
                 break;
@@ -141,17 +129,19 @@ public class AlunoController{
     }
 
     private void salvarAluno(){
-        int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());
-        String nome = janelaAluno.getTextoNome().getText();
-        String email = janelaAluno.getTextoEmail().getText();
+        String[] dados = janelaAluno.getDadosFormulario(); 
+        int matricula = Integer.parseInt(dados[1]);
+        String nome = dados[2];
+        String email = dados[3];
         alunoRepository.create(new Aluno(0, matricula, nome, email));
     }
 
     private void atualizarAluno(){
-        int id = Integer.parseInt(janelaAluno.getTextoId().getText());
-        int matricula = Integer.parseInt(janelaAluno.getTextoMatricula().getText());        
-        String nome = janelaAluno.getTextoNome().getText();
-        String email = janelaAluno.getTextoEmail().getText();
+        String[] dados = janelaAluno.getDadosFormulario(); 
+        int id = Integer.parseInt(dados[0]);
+        int matricula = Integer.parseInt(dados[1]);
+        String nome = dados[2];
+        String email = dados[3];
 
         for(int i=0; i<alunos.size(); i++){
             if(id == alunos.get(i).getId()){
@@ -161,55 +151,64 @@ public class AlunoController{
                     aluno.setNome(nome);
                     aluno.setEmail(email);
                     alunoRepository.update(aluno);
-                    definirDadosDaTabela();
                 }
             }
         }
     }
 
     private void deletarAluno(){
-        int id = Integer.parseInt(janelaAluno.getTextoId().getText());
+        String[] dados = janelaAluno.getDadosFormulario();
+        int id = Integer.parseInt(dados[0]);
         for(int i=0; i<alunos.size(); i++){
             if(id == alunos.get(i).getId()){
                 alunoRepository.delete(id);
-                definirDadosDaTabela();
             }
         }
     }
 
-    private void limparCamposDeTexto(){
-        janelaAluno.getTextoId().setText("");
-        janelaAluno.getTextoMatricula().setText("");
-        janelaAluno.getTextoNome().setText("");
-        janelaAluno.getTextoEmail().setText("");
-        janelaAluno.getLabelErroCrud().setVisible(false);
-    }
-
-    private Boolean verificaErrosCrud(){
+    private Boolean verificarErrosFormulario(){
         boolean temErro = false;
+        boolean temErroRegex = false;
+
+        String[] dados = janelaAluno.getDadosFormulario();
 
         if(
-            janelaAluno.getTextoMatricula().getText().equals("") ||
-            janelaAluno.getTextoNome().getText().equals("") ||
-            janelaAluno.getTextoEmail().getText().equals("")
+            dados[1].equals("") ||
+            dados[2].equals("") ||
+            dados[3].equals("")
         ){
-            janelaAluno.getLabelErroCrud().setText("Preencha todos os campos obrigatórios.");
+            janelaAluno.mostrarErroFormulario("Preencha todos os campos obrigatórios.");
             temErro = true;
         }
 
-        if (!janelaAluno.getTextoMatricula().getText().matches("\\d+")) {
-            janelaAluno.getLabelErroCrud().setText("Matrícula inválida.");
+        if (
+            !temErroRegex &&
+            !dados[1].equals("") &&
+            !dados[1].matches("\\d+")
+        ) {
+            janelaAluno.mostrarErroFormulario("Matrícula inválida.");
             temErro = true;
+            temErroRegex = true;
         }
         
-        if (!janelaAluno.getTextoNome().getText().matches("[a-zA-ZÀ-ÿ ]+")) {
-            janelaAluno.getLabelErroCrud().setText("Nome inválido.");
+        if (
+            !temErroRegex &&
+            !dados[2].equals("") &&
+            !dados[2].matches("[a-zA-ZÀ-ÿ ]+")
+        ) {
+            janelaAluno.mostrarErroFormulario("Nome inválido.");
             temErro = true;
+            temErroRegex = true;
         }
 
-        if (!janelaAluno.getTextoEmail().getText().matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")) {
-            janelaAluno.getLabelErroCrud().setText("Email inválido.");
+        if (
+            !temErroRegex &&
+            !dados[3].equals("") &&
+            !dados[3].matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")
+        ) {
+            janelaAluno.mostrarErroFormulario("Email inválido.");
             temErro = true;
+            temErroRegex = true;
         }
 
         if(
@@ -217,54 +216,55 @@ public class AlunoController{
             Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em create.
             Dessa forma, ao apertar em update, esse erro não será acionado.
             */
-            janelaAluno.getTextoId().getText().equals("") &&
-            !janelaAluno.getTextoMatricula().getText().equals("") &&
-            janelaAluno.getTextoMatricula().getText().matches("[0-9]+") &&
-            alunoRepository.readPorMatricula(Integer.parseInt(janelaAluno.getTextoMatricula().getText()))
+            dados[0].equals("") &&
+            !dados[1].equals("") &&
+            dados[1].matches("\\d+") &&
+            alunoRepository.readPorMatricula(Integer.parseInt(dados[1]))
         ){
-            janelaAluno.getLabelErroCrud().setText("Já existe um aluno cadastrado com esta matrícula.");
+            janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com esta matrícula.");
             temErro = true;
         }
 
         //erro ao atualizar
 
-        if(temErro){
-            janelaAluno.getLabelErroCrud().setVisible(true);
-        }else{
-            janelaAluno.getLabelErroCrud().setVisible(false);
+        if(!temErro){
+            janelaAluno.ocultarErroFormulario();
         }
 
         return temErro;
     }
 
-    private Boolean verificaErrosBuscar(){
+    private Boolean verificarErrosBusca(){
         boolean temErro = false;
 
-        if(janelaAluno.getTextoBuscar().getText().equals("")){
-            janelaAluno.getLabelErroBuscar().setText("Preencha o campo.");
+        String matriculaBuscada = janelaAluno.getDadoBusca();
+
+        if(matriculaBuscada.equals("")){
+            janelaAluno.mostrarErroBusca("Preencha o campo.");
             temErro = true;
         }
 
-        if (!janelaAluno.getTextoBuscar().getText().matches("\\d+")) {
-            janelaAluno.getLabelErroBuscar().setText("Matrícula inválida.");
+        if (
+            !matriculaBuscada.equals("") &&
+            !matriculaBuscada.matches("\\d+")
+        ) {
+            janelaAluno.mostrarErroBusca("Matrícula inválida.");
             temErro = true;
         }
 
         if(
-            !janelaAluno.getTextoBuscar().getText().equals("") &&
-            janelaAluno.getTextoBuscar().getText().matches("\\d+")
+            !matriculaBuscada.equals("") &&
+            matriculaBuscada.matches("\\d+")
         ){
-            int linha = procurarLinhaNaTabela();
+            int linha = procurarLinhaTabela();
             if(linha == -1){
-                janelaAluno.getLabelErroBuscar().setText("Registro não encontrado.");
+                janelaAluno.mostrarErroBusca("Registro não encontrado.");
                 temErro = true;
             }
         }
 
-        if(temErro){
-            janelaAluno.getLabelErroBuscar().setVisible(true);
-        }else{
-            janelaAluno.getLabelErroBuscar().setVisible(false);
+        if(!temErro){
+            janelaAluno.ocultarErroBusca();
         }
 
         return temErro;
