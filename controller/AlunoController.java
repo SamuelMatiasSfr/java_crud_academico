@@ -6,8 +6,6 @@ import model.Aluno;
 
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.BlockElement;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -199,6 +197,21 @@ public class AlunoController{
             temErro = true;
         }
 
+        if (!janelaAluno.getTextoMatricula().getText().matches("\\d+")) {
+            janelaAluno.getLabelErroCrud().setText("Matrícula inválida.");
+            temErro = true;
+        }
+        
+        if (!janelaAluno.getTextoNome().getText().matches("[a-zA-ZÀ-ÿ ]+")) {
+            janelaAluno.getLabelErroCrud().setText("Nome inválido.");
+            temErro = true;
+        }
+
+        if (!janelaAluno.getTextoEmail().getText().matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")) {
+            janelaAluno.getLabelErroCrud().setText("Email inválido.");
+            temErro = true;
+        }
+
         if(
             /* 
             Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em create.
@@ -206,6 +219,7 @@ public class AlunoController{
             */
             janelaAluno.getTextoId().getText().equals("") &&
             !janelaAluno.getTextoMatricula().getText().equals("") &&
+            janelaAluno.getTextoMatricula().getText().matches("[0-9]+") &&
             alunoRepository.readPorMatricula(Integer.parseInt(janelaAluno.getTextoMatricula().getText()))
         ){
             janelaAluno.getLabelErroCrud().setText("Já existe um aluno cadastrado com esta matrícula.");
@@ -231,7 +245,15 @@ public class AlunoController{
             temErro = true;
         }
 
-        if(!janelaAluno.getTextoBuscar().getText().equals("")){
+        if (!janelaAluno.getTextoBuscar().getText().matches("\\d+")) {
+            janelaAluno.getLabelErroBuscar().setText("Matrícula inválida.");
+            temErro = true;
+        }
+
+        if(
+            !janelaAluno.getTextoBuscar().getText().equals("") &&
+            janelaAluno.getTextoBuscar().getText().matches("\\d+")
+        ){
             int linha = procurarLinhaNaTabela();
             if(linha == -1){
                 janelaAluno.getLabelErroBuscar().setText("Registro não encontrado.");
