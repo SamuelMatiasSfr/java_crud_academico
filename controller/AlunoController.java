@@ -185,7 +185,7 @@ public class AlunoController{
 
         return linha;
     }
-
+    
     private Boolean verificarErrosFormulario(){
         boolean temErro = false;
         boolean temErroRegex = false;
