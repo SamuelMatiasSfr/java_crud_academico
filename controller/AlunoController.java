@@ -70,9 +70,11 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    atualizarAluno();
-                    atualizarTabela();
-                    janelaAluno.limparCamposFormulario();
+                    if(!verificarErrosFormulario()){
+                        atualizarAluno();
+                        atualizarTabela();
+                        janelaAluno.limparCamposFormulario();
+                    }
                 }
             }
         );
@@ -211,7 +213,26 @@ public class AlunoController{
             temErro = true;
         }
 
-        //erro ao atualizar
+        if(
+            /* 
+            Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em update.
+            Dessa forma, ao apertar em create, esse erro não será acionado.
+            */
+            !dados[0].equals("") &&
+            !dados[1].equals("") &&
+            dados[1].matches("\\d+")
+        ){
+            int idCampo = Integer.parseInt(dados[0]);
+            int matriculaCampo = Integer.parseInt(dados[1]);
+            for(int i=0; i<alunos.size(); i++){
+                int idLoop = alunos.get(i).getId();
+                int matriculaLoop = alunos.get(i).getMatricula();
+                if((idCampo != idLoop) && (matriculaCampo == matriculaLoop)){
+                    janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com esta matrícula.");
+                    temErro = true;
+                }
+            }
+        }
 
         if(!temErro){
             janelaAluno.ocultarErroFormulario();

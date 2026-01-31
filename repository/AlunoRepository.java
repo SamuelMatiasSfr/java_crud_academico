@@ -28,7 +28,6 @@ public class AlunoRepository {
 
     public Boolean read(int id){
         String sql = "SELECT * FROM alunos WHERE id = ?";    
-        //Aluno aluno = null;
         boolean alunoExiste = false;
 
         try { 
