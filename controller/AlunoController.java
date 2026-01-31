@@ -21,23 +21,8 @@ public class AlunoController{
         this.alunoRepository = alunoRepository;
         this.janelaAluno = janelaAluno;
         this.alunos = new ArrayList<>();
-        atualizarTabela();
         definirListeners();
-    }
-
-    private void atualizarTabela(){
-        this.alunos.clear();
-        this.alunos = this.alunoRepository.getTodos();
-
-        Object [][] dados = new Object[alunos.size()][4];
-        for(int i=0; i<dados.length; i++){
-            dados[i][0] = alunos.get(i).getId();
-            dados[i][1] = alunos.get(i).getMatricula();
-            dados[i][2] = alunos.get(i).getNome();
-            dados[i][3] = alunos.get(i).getEmail();
-        }
-
-        janelaAluno.atualizarTabela(dados);
+        atualizarTabela();
     }
 
     private void definirListeners(){
@@ -131,6 +116,21 @@ public class AlunoController{
         );
     }
 
+    private void atualizarTabela(){
+        this.alunos.clear();
+        this.alunos = this.alunoRepository.getTodos();
+
+        Object [][] dados = new Object[alunos.size()][4];
+        for(int i=0; i<dados.length; i++){
+            dados[i][0] = alunos.get(i).getId();
+            dados[i][1] = alunos.get(i).getMatricula();
+            dados[i][2] = alunos.get(i).getNome();
+            dados[i][3] = alunos.get(i).getEmail();
+        }
+
+        janelaAluno.atualizarTabela(dados);
+    }
+
     private void salvarAluno(){
         String[] dados = janelaAluno.getDadosFormulario(); 
         int matricula = Integer.parseInt(dados[1]);
@@ -154,7 +154,6 @@ public class AlunoController{
         int id = Integer.parseInt(dados[0]);
         alunoRepository.delete(id);
     }
-
 
     private Integer procurarLinhaTabela(){
         String matriculaBuscada = janelaAluno.getDadoBusca();

@@ -26,55 +26,6 @@ public class AlunoRepository {
 
     }
 
-    public Aluno read(int id){
-        String sql = "SELECT * FROM alunos WHERE id = ?";    
-        //boolean alunoExiste = false;
-        Aluno aluno = null;
-
-        try { 
-            Connection conexao = Conexao.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet result = stmt.executeQuery();
-
-            if(result.next()){
-                aluno = new Aluno(
-                    result.getInt("id"), 
-                    result.getInt("matricula"), 
-                    result.getString("nome"), 
-                    result.getString("email")
-                );
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return aluno;
-    }
-
-    public Boolean readPorMatricula(int matricula){
-        boolean existe = false;
-
-        String sql = "SELECT * FROM alunos WHERE matricula = ?";    
-
-        try { 
-            Connection conexao = Conexao.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, matricula);
-            ResultSet result = stmt.executeQuery();
-
-            if(result.next()){
-                existe = true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return existe;
-    }
-
     public void update(Aluno aluno){
         String sql = "UPDATE alunos SET matricula = ?, nome = ?, email = ? WHERE id = ?";
 
