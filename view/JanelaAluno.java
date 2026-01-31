@@ -19,13 +19,13 @@ import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBuscar, labelDigiteMatricula;
-    private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBuscar;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBusca, labelDigiteMatricula;
+    private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBusca;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
-    private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBuscar;
+    private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBusca;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
-    private JScrollPane painelScroll;
+    private JScrollPane painelScrollTabela;
 
     public JanelaAluno(){
         super("Gerenciador Alunos");
@@ -52,8 +52,8 @@ public class JanelaAluno extends JFrame {
         labelEmail = new JLabel("Email: ");
         labelErroCrud = new JLabel("");
         labelErroCrud.setForeground(Color.RED);
-        labelErroBuscar = new JLabel("");
-        labelErroBuscar.setForeground(Color.RED);
+        labelErroBusca = new JLabel("");
+        labelErroBusca.setForeground(Color.RED);
         labelDigiteMatricula = new JLabel("Digite matrícula:");
 
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -61,11 +61,11 @@ public class JanelaAluno extends JFrame {
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelErroCrud.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelErroBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelErroBusca.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelDigiteMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         labelErroCrud.setVisible(false);
-        labelErroBuscar.setVisible(false);
+        labelErroBusca.setVisible(false);
     }
 
     private void criarTextos(){
@@ -74,13 +74,13 @@ public class JanelaAluno extends JFrame {
         textoMatricula = new JTextField("");
         textoNome = new JTextField("");
         textoEmail = new JTextField("");
-        textoBuscar = new JTextField("");
+        textoBusca = new JTextField("");
 
         textoId.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         textoEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textoBuscar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textoBusca.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
     private void criarBotoes(){
@@ -111,11 +111,11 @@ public class JanelaAluno extends JFrame {
         criarPainelMatricula();
         criarPainelNome();
         criarPainelEmail();
-        criaPainelErro();
+        criaPainelErroFormulario();
         criarPainelBotoes();
         criarPainelEsquerdo();
-        criarPainelScroll();
-        criarPainelBuscar();
+        criarPainelScrollTabela();
+        criarPainelBusca();
         criarPainelDireito();
         add(painelEsquerdo, BorderLayout.WEST);
         add(painelDireito, BorderLayout.EAST);
@@ -149,7 +149,7 @@ public class JanelaAluno extends JFrame {
         painelEmail.add(textoEmail);
     }
 
-    private void criaPainelErro(){
+    private void criaPainelErroFormulario(){
         painelErro = new JPanel();
         painelErro.setLayout(new BoxLayout(painelErro, BoxLayout.Y_AXIS));
         painelErro.add(labelErroCrud);
@@ -184,32 +184,32 @@ public class JanelaAluno extends JFrame {
         painelEsquerdo.setBorder(new EmptyBorder(15,15,15,15));
     }
 
-    private void criarPainelScroll(){
-        painelScroll = new JScrollPane(tabela);
+    private void criarPainelScrollTabela(){
+        painelScrollTabela = new JScrollPane(tabela);
     }
 
-    private void criarPainelBuscar(){
-        painelBuscar = new JPanel();
-        painelBuscar.setLayout(new BoxLayout(painelBuscar, BoxLayout.X_AXIS));
-        painelBuscar.add(labelDigiteMatricula);
-        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
-        painelBuscar.add(textoBuscar);
-        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
-        painelBuscar.add(botaoBuscar);
-        painelBuscar.add(Box.createRigidArea(new Dimension(10, 0)));
-        painelBuscar.add(labelErroBuscar);
+    private void criarPainelBusca(){
+        painelBusca = new JPanel();
+        painelBusca.setLayout(new BoxLayout(painelBusca, BoxLayout.X_AXIS));
+        painelBusca.add(labelDigiteMatricula);
+        painelBusca.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBusca.add(textoBusca);
+        painelBusca.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBusca.add(botaoBuscar);
+        painelBusca.add(Box.createRigidArea(new Dimension(10, 0)));
+        painelBusca.add(labelErroBusca);
     }
 
     private void criarPainelDireito(){
         painelDireito = new JPanel();
         painelDireito.setLayout(new BoxLayout(painelDireito, BoxLayout.PAGE_AXIS));
-        painelDireito.add(painelScroll, BorderLayout.EAST);
+        painelDireito.add(painelScrollTabela, BorderLayout.EAST);
         painelDireito.add(Box.createRigidArea(new Dimension(0, 15)));
-        painelDireito.add(painelBuscar, BorderLayout.EAST);
+        painelDireito.add(painelBusca, BorderLayout.EAST);
         painelDireito.setBorder(new EmptyBorder(15,0,15,15));
     }
 
-    public void definirTabela(Object [][] dados){
+    public void atualizarTabela(Object [][] dados){
         tabelaModel.setRowCount(0);
         for(int i=0; i<dados.length; i++){
             tabelaModel.addRow(dados[i]);
@@ -222,7 +222,7 @@ public class JanelaAluno extends JFrame {
     }
 
     public JLabel getLabelErroBuscar() {
-        return labelErroBuscar;
+        return labelErroBusca;
     }
 
     public JButton getBotaoCreate() {
@@ -279,11 +279,11 @@ public class JanelaAluno extends JFrame {
     }
 
     public JTextField getTextoBuscar() {
-        return textoBuscar;
+        return textoBusca;
     }
 
     public void setTextoBuscar(JTextField textoBuscar) {
-        this.textoBuscar = textoBuscar;
+        this.textoBusca = textoBuscar;
     }
 
     public JTable getTabela() {
@@ -300,7 +300,7 @@ public class JanelaAluno extends JFrame {
     }
 
     public String getDadoBusca(){
-        return textoBuscar.getText();
+        return textoBusca.getText();
     }
 
     public void setDadosFormulario(){
@@ -325,7 +325,7 @@ public class JanelaAluno extends JFrame {
     }
 
     public void limparCampoBusca(){
-        textoBuscar.setText("");
+        textoBusca.setText("");
     }
 
     public void mostrarErroFormulario(String erro){
@@ -338,12 +338,12 @@ public class JanelaAluno extends JFrame {
     }
 
     public void mostrarErroBusca(String erro){
-        labelErroBuscar.setText(erro);
-        labelErroBuscar.setVisible(true);
+        labelErroBusca.setText(erro);
+        labelErroBusca.setVisible(true);
     }
 
     public void ocultarErroBusca(){
-        labelErroBuscar.setVisible(false);
+        labelErroBusca.setVisible(false);
     }
 
     public int getQuantLinhasTabela(){

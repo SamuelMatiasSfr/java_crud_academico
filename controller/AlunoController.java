@@ -21,8 +21,8 @@ public class AlunoController{
         this.alunoRepository = alunoRepository;
         this.janelaAluno = janelaAluno;
         this.alunos = new ArrayList<>();
-        definirListeners();
         atualizarTabela();
+        definirListeners();
     }
 
     private void atualizarTabela(){
@@ -37,11 +37,19 @@ public class AlunoController{
             dados[i][3] = alunos.get(i).getEmail();
         }
 
-        janelaAluno.definirTabela(dados);
+        janelaAluno.atualizarTabela(dados);
     }
 
     private void definirListeners(){
+        definirListenerTabela();
+        definirListenerBotaoCreate();
+        definirListenerBotaoUpdate();
+        definirListenerBotaoDelete();
+        definirListenerBotaoLimpar();
+        definirListenerBotaoBuscar();
+    }
 
+    private void definirListenerTabela(){
         janelaAluno.getTabela().addMouseListener(
             new MouseAdapter() {
                 @Override
@@ -52,7 +60,9 @@ public class AlunoController{
                 }
             }
         );
+    }
 
+    private void definirListenerBotaoCreate(){
         janelaAluno.getBotaoCreate().addActionListener(
             new ActionListener(){
                 @Override
@@ -65,7 +75,9 @@ public class AlunoController{
                 }
             }
         );
+    }
 
+    private void definirListenerBotaoUpdate(){
         janelaAluno.getBotaoUpdate().addActionListener(
             new ActionListener(){
                 @Override
@@ -78,7 +90,9 @@ public class AlunoController{
                 }
             }
         );
+    }
 
+    private void definirListenerBotaoDelete(){
         janelaAluno.getBotaoDelete().addActionListener(
             new ActionListener(){
                 @Override
@@ -89,7 +103,9 @@ public class AlunoController{
                 }
             }
         );
+    }
 
+    private void definirListenerBotaoLimpar(){
         janelaAluno.getBotaoLimpar().addActionListener(
             new ActionListener(){
                 @Override
@@ -99,7 +115,9 @@ public class AlunoController{
                 }
             }
         );
+    }
 
+    private void definirListenerBotaoBuscar(){
         janelaAluno.getBotaoBuscar().addActionListener(
             new ActionListener(){
                 @Override
@@ -111,23 +129,6 @@ public class AlunoController{
                 }
             }
         );
-
-    }
-
-    private Integer procurarLinhaTabela(){
-        String matriculaBuscada = janelaAluno.getDadoBusca();
-
-        int linha = -1;
-        int quantLinhas = janelaAluno.getQuantLinhasTabela();
-        for(int i=0; i<quantLinhas; i++){
-            String matriculaLinha = janelaAluno.getMatriculaLinhaTabela(i);
-            if(matriculaLinha.equals(matriculaBuscada)){
-                linha = i;
-                break;
-            }
-        }
-
-        return linha;
     }
 
     private void salvarAluno(){
@@ -152,6 +153,23 @@ public class AlunoController{
         String[] dados = janelaAluno.getDadosFormulario();
         int id = Integer.parseInt(dados[0]);
         alunoRepository.delete(id);
+    }
+
+
+    private Integer procurarLinhaTabela(){
+        String matriculaBuscada = janelaAluno.getDadoBusca();
+
+        int linha = -1;
+        int quantLinhas = janelaAluno.getQuantLinhasTabela();
+        for(int i=0; i<quantLinhas; i++){
+            String matriculaLinha = janelaAluno.getMatriculaLinhaTabela(i);
+            if(matriculaLinha.equals(matriculaBuscada)){
+                linha = i;
+                break;
+            }
+        }
+
+        return linha;
     }
 
     private Boolean verificarErrosFormulario(){
@@ -200,36 +218,57 @@ public class AlunoController{
         }
 
         if(
-            /* 
-            Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em create.
-            Dessa forma, ao apertar em update, esse erro não será acionado.
-            */
-            dados[0].equals("") &&
             !dados[1].equals("") &&
-            dados[1].matches("\\d+") &&
-            alunoRepository.readPorMatricula(Integer.parseInt(dados[1]))
+            dados[1].matches("\\d+") 
         ){
-            janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com esta matrícula.");
-            temErro = true;
+            if(dados[0].equals("")){
+                int matriculaDigitada = Integer.parseInt(dados[1]);
+                for(int i = 0; i<alunos.size(); i++){
+                    if(matriculaDigitada == alunos.get(i).getMatricula()){
+                        janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com esta matrícula.");
+                        temErro = true;
+                        break;
+                    }
+                }
+            }else{
+                int idDigitado = Integer.parseInt(dados[0]);
+                int matriculaDigitada = Integer.parseInt(dados[1]);
+                for(int i=0; i<alunos.size(); i++){
+                    int idLoop = alunos.get(i).getId();
+                    int matriculaLoop = alunos.get(i).getMatricula();
+                    if((idDigitado != idLoop) && (matriculaDigitada == matriculaLoop)){
+                        janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com esta matrícula.");
+                        temErro = true;
+                        break;
+                    }
+                }
+            }
         }
 
         if(
-            /* 
-            Essa verificação do campo ID vai delimitar a função somente para quando o usuário clicar em update.
-            Dessa forma, ao apertar em create, esse erro não será acionado.
-            */
-            !dados[0].equals("") &&
-            !dados[1].equals("") &&
-            dados[1].matches("\\d+")
+            !dados[3].equals("") &&
+            dados[3].matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}") 
         ){
-            int idCampo = Integer.parseInt(dados[0]);
-            int matriculaCampo = Integer.parseInt(dados[1]);
-            for(int i=0; i<alunos.size(); i++){
-                int idLoop = alunos.get(i).getId();
-                int matriculaLoop = alunos.get(i).getMatricula();
-                if((idCampo != idLoop) && (matriculaCampo == matriculaLoop)){
-                    janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com esta matrícula.");
-                    temErro = true;
+            if(dados[0].equals("")){
+                String emailDigitado = dados[3];
+                for(int i = 0; i<alunos.size(); i++){
+                    if(emailDigitado.equals(alunos.get(i).getEmail())){
+                        janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com este email.");
+                        temErro = true;
+                        break;
+                    }
+                }
+            }else{
+                int idDigitado = Integer.parseInt(dados[0]);
+                String emailDigitado = dados[3];
+                for(int i=0; i<alunos.size(); i++){
+                    int idLoop = alunos.get(i).getId();
+                    String emailLoop = alunos.get(i).getEmail();
+                    if((idDigitado != idLoop) && (emailDigitado.equals(emailLoop))){
+                        janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com este email.");
+                        temErro = true;
+                        break;
+                    }
                 }
             }
         }
