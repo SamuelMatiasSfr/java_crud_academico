@@ -19,12 +19,12 @@ import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelErroCrud, labelErroBusca, labelDigiteMatricula;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelBusca, labelErroFormulario, labelErroBusca;
     private JTextField textoId, textoMatricula, textoNome, textoEmail, textoBusca;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
-    private JPanel painelEsquerdo, painelDireito, painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelBusca;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
+    private JPanel painelId, painelMatricula, painelNome, painelEmail, painelErro, painelBotoes, painelEsquerdo, painelBusca, painelDireito;
     private JScrollPane painelScrollTabela;
 
     public JanelaAluno(){
@@ -50,21 +50,22 @@ public class JanelaAluno extends JFrame {
         labelMatricula = new JLabel("Matrícula: ");
         labelNome = new JLabel("Nome: ");
         labelEmail = new JLabel("Email: ");
-        labelErroCrud = new JLabel("");
-        labelErroCrud.setForeground(Color.RED);
+        labelBusca = new JLabel("Digite matrícula:");
+        labelErroFormulario = new JLabel("");
         labelErroBusca = new JLabel("");
+
+        labelErroFormulario.setForeground(Color.RED);
         labelErroBusca.setForeground(Color.RED);
-        labelDigiteMatricula = new JLabel("Digite matrícula:");
 
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelErroCrud.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelBusca.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelErroFormulario.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelErroBusca.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelDigiteMatricula.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        labelErroCrud.setVisible(false);
+        labelErroFormulario.setVisible(false);
         labelErroBusca.setVisible(false);
     }
 
@@ -152,7 +153,7 @@ public class JanelaAluno extends JFrame {
     private void criaPainelErroFormulario(){
         painelErro = new JPanel();
         painelErro.setLayout(new BoxLayout(painelErro, BoxLayout.Y_AXIS));
-        painelErro.add(labelErroCrud);
+        painelErro.add(labelErroFormulario);
     }
 
     private void criarPainelBotoes(){
@@ -191,7 +192,7 @@ public class JanelaAluno extends JFrame {
     private void criarPainelBusca(){
         painelBusca = new JPanel();
         painelBusca.setLayout(new BoxLayout(painelBusca, BoxLayout.X_AXIS));
-        painelBusca.add(labelDigiteMatricula);
+        painelBusca.add(labelBusca);
         painelBusca.add(Box.createRigidArea(new Dimension(10, 0)));
         painelBusca.add(textoBusca);
         painelBusca.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -209,20 +210,8 @@ public class JanelaAluno extends JFrame {
         painelDireito.setBorder(new EmptyBorder(15,0,15,15));
     }
 
-    public void atualizarTabela(Object [][] dados){
-        tabelaModel.setRowCount(0);
-        for(int i=0; i<dados.length; i++){
-            tabelaModel.addRow(dados[i]);
-        }
-        tabela.setModel(tabelaModel);
-    }
-
-    public JLabel getLabelErroCrud() {
-        return labelErroCrud;
-    }
-
-    public JLabel getLabelErroBuscar() {
-        return labelErroBusca;
+    public JTable getTabela() {
+        return tabela;
     }
 
     public JButton getBotaoCreate() {
@@ -245,51 +234,6 @@ public class JanelaAluno extends JFrame {
         return botaoBuscar;
     }
 
-    /* 
-    public JTextField getTextoId() {
-        return textoId;
-    }*/
-
-    public void setTextoId(JTextField textoId) {
-        this.textoId = textoId;
-    }
-
-    public JTextField getTextoMatricula() {
-        return textoMatricula;
-    }
-
-    public void setTextoMatricula(JTextField textoMatricula) {
-        this.textoMatricula = textoMatricula;
-    }
-
-    public JTextField getTextoNome() {
-        return textoNome;
-    }
-
-    public void setTextoNome(JTextField textoNome) {
-        this.textoNome = textoNome;
-    }
-
-    public JTextField getTextoEmail() {
-        return textoEmail;
-    }
-
-    public void setTextoEmail(JTextField textoEmail) {
-        this.textoEmail = textoEmail;
-    }
-
-    public JTextField getTextoBuscar() {
-        return textoBusca;
-    }
-
-    public void setTextoBuscar(JTextField textoBuscar) {
-        this.textoBusca = textoBuscar;
-    }
-
-    public JTable getTabela() {
-        return tabela;
-    }
-
     public String[] getDadosFormulario(){
         return new String[]{
             textoId.getText(),
@@ -297,10 +241,6 @@ public class JanelaAluno extends JFrame {
             textoNome.getText(),
             textoEmail.getText()
         };
-    }
-
-    public String getDadoBusca(){
-        return textoBusca.getText();
     }
 
     public void setDadosFormulario(){
@@ -324,17 +264,21 @@ public class JanelaAluno extends JFrame {
         textoEmail.setText("");
     }
 
-    public void limparCampoBusca(){
-        textoBusca.setText("");
-    }
-
     public void mostrarErroFormulario(String erro){
-        labelErroCrud.setText(erro);
-        labelErroCrud.setVisible(true);
+        labelErroFormulario.setText(erro);
+        labelErroFormulario.setVisible(true);
     }
 
     public void ocultarErroFormulario(){
-        labelErroCrud.setVisible(false);
+        labelErroFormulario.setVisible(false);
+    }
+
+    public String getDadoBusca(){
+        return textoBusca.getText();
+    }
+
+    public void limparCampoBusca(){
+        textoBusca.setText("");
     }
 
     public void mostrarErroBusca(String erro){
@@ -356,6 +300,14 @@ public class JanelaAluno extends JFrame {
 
     public void selecionarLinhaTabela(int linha){
         tabela.setRowSelectionInterval(linha, linha);
+    }
+
+    public void atualizarTabela(Object [][] dados){
+        tabelaModel.setRowCount(0);
+        for(int i=0; i<dados.length; i++){
+            tabelaModel.addRow(dados[i]);
+        }
+        tabela.setModel(tabelaModel);
     }
 
 }
