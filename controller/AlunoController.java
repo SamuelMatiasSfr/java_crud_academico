@@ -136,7 +136,12 @@ public class AlunoController{
         int matricula = Integer.parseInt(dados[1]);
         String nome = dados[2];
         String email = dados[3];
-        alunoRepository.create(new Aluno(0, matricula, nome, email));
+        
+        boolean sucesso = alunoRepository.create(new Aluno(0, matricula, nome, email));
+
+        if(!sucesso){
+            janelaAluno.mostrarErroFormulario("Erro ao salvar aluno");
+        }
     }
 
     private void atualizarAluno(){
@@ -146,13 +151,23 @@ public class AlunoController{
         String nome = dados[2];
         String email = dados[3];
         Aluno aluno = new Aluno(id, matricula, nome, email);
-        alunoRepository.update(aluno);
+        
+        boolean sucesso = alunoRepository.update(aluno);
+
+        if(!sucesso){
+            janelaAluno.mostrarErroFormulario("Erro ao atualizar aluno");
+        }
     }
 
     private void deletarAluno(){
         String[] dados = janelaAluno.getDadosFormulario();
         int id = Integer.parseInt(dados[0]);
-        alunoRepository.delete(id);
+        
+        boolean sucesso = alunoRepository.delete(id);
+
+        if(!sucesso){
+            janelaAluno.mostrarErroFormulario("Erro ao deletar aluno");
+        }
     }
 
     private Integer procurarLinhaTabela(){
