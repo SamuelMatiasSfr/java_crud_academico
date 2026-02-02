@@ -63,6 +63,10 @@ public class JanelaPrincipal extends JFrame {
         return botao;
     }
 
+    public String getItemSelecionadao(){
+        return opcoes.getSelectedItem().toString();
+    }
+
     public static void main(String[] args) {
         JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
     }

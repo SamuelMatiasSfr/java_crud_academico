@@ -23,33 +23,26 @@ public class PrincipalController {
 
     public void definirListeners(){
 
-        janelaPrincipal.getBotaoAluno().addActionListener(
+        janelaPrincipal.getBotao().addActionListener(
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    criarGerenciadorAlunos();
+                    String itemSelecionado = janelaPrincipal.getItemSelecionadao();
+                    mostrarGerenciador(itemSelecionado);
                 }
             }
         );
 
-        janelaPrincipal.getBotaoProfessor().addActionListener(
-            new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent evento){
-                    criarGerenciadorProfessores();
-                }
-            }
-        );
+    }
 
-        janelaPrincipal.getBotaoServidor().addActionListener(
-            new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent evento){
-                    criarGerenciadorServidores();
-                }
-            }
-        );
-
+    public void mostrarGerenciador(String itemSelecionado){
+        if(itemSelecionado.equals("Gerenciador de Alunos")){
+            criarGerenciadorAlunos();
+        }else if(itemSelecionado.equals("Gerenciador de Professores")){
+            criarGerenciadorProfessores();
+        }else{
+            criarGerenciadorServidores();
+        }
     }
 
     public void criarGerenciadorAlunos(){
