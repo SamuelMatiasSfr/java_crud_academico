@@ -8,9 +8,9 @@ public class ServidorController {
     private ServidorRepository servidorRepository;
     private JanelaServidor janelaServidor;
 
-    public ServidorController(ServidorRepository servidorRepository, JanelaServidor janelaServidor) {
-        this.servidorRepository = servidorRepository;
-        this.janelaServidor = janelaServidor;
+    public ServidorController() {
+        this.servidorRepository = new ServidorRepository();
+        this.janelaServidor = new JanelaServidor();
     }
     
 }

@@ -8,9 +8,9 @@ public class ProfessorController {
     private ProfessorRepository professorRepository;
     private JanelaProfessor janelaProfessor;
 
-    public ProfessorController(ProfessorRepository professorRepository, JanelaProfessor janelaProfessor) {
-        this.professorRepository = professorRepository;
-        this.janelaProfessor = janelaProfessor;
+    public ProfessorController() {
+        this.professorRepository = new ProfessorRepository();
+        this.janelaProfessor = new JanelaProfessor();
     }
 
 }

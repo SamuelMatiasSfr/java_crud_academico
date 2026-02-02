@@ -1,23 +1,17 @@
 package controller;
 
-import view.JanelaAluno;
 import view.JanelaPrincipal;
-import view.JanelaProfessor;
-import view.JanelaServidor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import repository.AlunoRepository;
-import repository.ProfessorRepository;
-import repository.ServidorRepository;
 
 public class PrincipalController {
 
     private JanelaPrincipal janelaPrincipal;
 
-    public PrincipalController(JanelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
+    public PrincipalController() {
+        this.janelaPrincipal = new JanelaPrincipal();
         definirListeners();
     }
 
@@ -46,26 +40,19 @@ public class PrincipalController {
     }
 
     public void criarGerenciadorAlunos(){
-        AlunoRepository alunoRepository = new AlunoRepository();
-        JanelaAluno janelaAluno = new JanelaAluno();
-        AlunoController alunoController = new AlunoController(alunoRepository, janelaAluno);
+        AlunoController alunoController = new AlunoController();
     }
 
     public void criarGerenciadorProfessores(){
-        ProfessorRepository professorRepository = new ProfessorRepository();
-        JanelaProfessor janelaProfessor = new JanelaProfessor();
-        ProfessorController professorController = new ProfessorController(professorRepository, janelaProfessor);
+        ProfessorController professorController = new ProfessorController();
     }
 
     public void criarGerenciadorServidores(){
-        ServidorRepository servidorRepository = new ServidorRepository();
-        JanelaServidor janelaServidor = new JanelaServidor();
-        ServidorController servidorController = new ServidorController(servidorRepository, janelaServidor);
+        ServidorController servidorController = new ServidorController();
     }
 
     public static void main(String[] args) {
-        JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
-        PrincipalController principalController = new PrincipalController(janelaPrincipal);
+        PrincipalController principalController = new PrincipalController();
     }
     
 }

@@ -1,8 +1,8 @@
 package controller;
 
+import model.Aluno;
 import repository.AlunoRepository;
 import view.JanelaAluno;
-import model.Aluno;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,9 @@ public class AlunoController{
     private JanelaAluno janelaAluno;
     private ArrayList<Aluno> alunos;
 
-    public AlunoController(AlunoRepository alunoRepository, JanelaAluno janelaAluno) {
-        this.alunoRepository = alunoRepository;
-        this.janelaAluno = janelaAluno;
+    public AlunoController() {
+        this.alunoRepository = new AlunoRepository();
+        this.janelaAluno = new JanelaAluno();
         this.alunos = new ArrayList<>();
         definirListeners();
         atualizarTabela();
@@ -331,9 +331,7 @@ public class AlunoController{
     }
 
     public static void main(String[] args) {
-        AlunoRepository alunoRepository = new AlunoRepository();
-        JanelaAluno janelaAluno = new JanelaAluno();
-        AlunoController alunoController = new AlunoController(alunoRepository, janelaAluno);
+        AlunoController alunoController = new AlunoController();
     }
 
 }
