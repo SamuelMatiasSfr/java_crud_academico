@@ -27,7 +27,7 @@ public class JanelaProfessor extends JFrame {
     private JScrollPane painelScroll;
 
     public JanelaProfessor(){
-        super("Gerenciador Professores");
+        super("Gerenciador de Professores");
         setSize(750,450);
         setLocationRelativeTo(null);
 

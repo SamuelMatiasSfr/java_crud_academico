@@ -1,21 +1,22 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.border.EmptyBorder;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 
 public class JanelaAluno extends JFrame {
 
@@ -28,7 +29,7 @@ public class JanelaAluno extends JFrame {
     private JScrollPane painelScrollTabela;
 
     public JanelaAluno(){
-        super("Gerenciador Alunos");
+        super("Gerenciador de Alunos");
         setSize(900,350);
         setLocationRelativeTo(null);
 
