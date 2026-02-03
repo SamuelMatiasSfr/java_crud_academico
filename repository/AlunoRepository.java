@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AlunoRepository {
     
-    public Boolean create(Aluno aluno){
+    public void create(Aluno aluno){
         String sql = "INSERT INTO alunos (matricula, nome, email) VALUES (?, ?, ?)";
         
         try {
@@ -21,14 +21,11 @@ public class AlunoRepository {
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getEmail());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+        } catch (SQLException e) {}
 
     }
 
-    public Boolean update(Aluno aluno){
+    public void update(Aluno aluno){
         String sql = "UPDATE alunos SET matricula = ?, nome = ?, email = ? WHERE id = ?";
 
         try {
@@ -39,14 +36,11 @@ public class AlunoRepository {
             stmt.setString(3, aluno.getEmail());
             stmt.setInt(4, aluno.getId());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+        } catch (SQLException e) {}
 
     }
 
-    public Boolean delete(int id){
+    public void delete(int id){
         String sql = "DELETE FROM alunos WHERE id = ?";
 
         try {
@@ -54,10 +48,7 @@ public class AlunoRepository {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+        } catch (SQLException e) {}
 
     }
 
