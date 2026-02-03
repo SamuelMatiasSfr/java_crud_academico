@@ -22,38 +22,8 @@ public class ProfessorRepository {
             stmt.setString(4, professor.getFormacao());
             stmt.setInt(5, professor.getStatus());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
-    }
-
-    public Professor read(int id){
-        String sql = "SELECT * FROM professores WHERE id = ?";    
-        Professor professor = null;
-
-        try { 
-            Connection conexao = Conexao.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet result = stmt.executeQuery();
-
-            if(result.next()){
-                professor = new Professor(
-                    result.getInt("id"), 
-                    result.getInt("matricula"), 
-                    result.getString("nome"), 
-                    result.getString("email"),
-                    result.getString("formacao"),
-                    result.getInt("status")
-                );
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return professor;
     }
 
     public void update(Professor professor){
@@ -69,9 +39,7 @@ public class ProfessorRepository {
             stmt.setInt(5, professor.getStatus());
             stmt.setInt(6, professor.getId());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
     }
 
@@ -83,9 +51,7 @@ public class ProfessorRepository {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
     }
 
@@ -111,9 +77,7 @@ public class ProfessorRepository {
                     )
                 ); 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
         return professores;
     }

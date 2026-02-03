@@ -71,9 +71,7 @@ public class AlunoRepository {
                     )
                 ); 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
         return alunos;
     }
