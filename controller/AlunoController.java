@@ -2,6 +2,8 @@ package controller;
 
 import model.Aluno;
 import repository.AlunoRepository;
+import validator.AlunoValidator;
+import validator.ResultadoValidacao;
 import view.JanelaAluno;
 
 import java.awt.event.ActionEvent;
@@ -52,10 +54,14 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    if(!verificarErrosFormulario()){
-                        salvarAluno();
+                    String[] dados = janelaAluno.getDadosFormulario();
+                    ResultadoValidacao resultadoValidacao = AlunoValidator.verificarErrosFormulario(dados, alunos, true);
+                    if(!resultadoValidacao.isTemErro()){
+                        salvarAluno(dados);
                         atualizarTabela();
                         janelaAluno.limparCamposFormulario();
+                    }else{
+                        janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
                 }
             }
@@ -67,10 +73,14 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    if(!verificarErrosFormulario()){
-                        atualizarAluno();
+                    String[] dados = janelaAluno.getDadosFormulario();
+                    ResultadoValidacao resultadoValidacao = AlunoValidator.verificarErrosFormulario(dados, alunos, false);
+                    if(!resultadoValidacao.isTemErro()){
+                        atualizarAluno(dados);
                         atualizarTabela();
                         janelaAluno.limparCamposFormulario();
+                    }else{
+                        janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
                 }
             }
@@ -82,9 +92,15 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    deletarAluno();
-                    atualizarTabela();
-                    janelaAluno.limparCamposFormulario();
+                    String[] dados = janelaAluno.getDadosFormulario();
+                    ResultadoValidacao resultadoValidacao = AlunoValidator.verificarErrosFormulario(dados, alunos, false);
+                    if(!resultadoValidacao.isTemErro()){
+                        deletarAluno(dados);
+                        atualizarTabela();
+                        janelaAluno.limparCamposFormulario();
+                    }else{
+                        janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
+                    }
                 }
             }
         );
@@ -107,9 +123,13 @@ public class AlunoController{
             new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evento){
-                    if(!verificarErrosBusca()){
-                        int linha = procurarLinhaTabela();
+                    String dado = janelaAluno.getDadoBusca();
+                    int linha = procurarLinhaTabela();
+                    ResultadoValidacao resultadoValidacao = AlunoValidator.verificarErrosBusca(dado, linha);
+                    if(!resultadoValidacao.isTemErro()){
                         janelaAluno.selecionarLinhaTabela(linha);
+                    }else{
+                        janelaAluno.mostrarErroBusca(resultadoValidacao.getMensagem());
                     }
                 }
             }
@@ -131,8 +151,7 @@ public class AlunoController{
         janelaAluno.atualizarTabela(dados);
     }
 
-    private void salvarAluno(){
-        String[] dados = janelaAluno.getDadosFormulario(); 
+    private void salvarAluno(String[] dados){ 
         int matricula = Integer.parseInt(dados[1]);
         String nome = dados[2];
         String email = dados[3];
@@ -144,8 +163,7 @@ public class AlunoController{
         }
     }
 
-    private void atualizarAluno(){
-        String[] dados = janelaAluno.getDadosFormulario(); 
+    private void atualizarAluno(String[] dados){
         int id = Integer.parseInt(dados[0]);
         int matricula = Integer.parseInt(dados[1]);
         String nome = dados[2];
@@ -159,8 +177,7 @@ public class AlunoController{
         }
     }
 
-    private void deletarAluno(){
-        String[] dados = janelaAluno.getDadosFormulario();
+    private void deletarAluno(String[] dados){
         int id = Integer.parseInt(dados[0]);
         
         boolean sucesso = alunoRepository.delete(id);
@@ -186,150 +203,6 @@ public class AlunoController{
         return linha;
     }
     
-    private Boolean verificarErrosFormulario(){
-        boolean temErro = false;
-        boolean temErroRegex = false;
-
-        String[] dados = janelaAluno.getDadosFormulario();
-
-        if(
-            dados[1].equals("") ||
-            dados[2].equals("") ||
-            dados[3].equals("")
-        ){
-            janelaAluno.mostrarErroFormulario("Preencha todos os campos obrigatórios.");
-            temErro = true;
-        }
-
-        if (
-            !temErroRegex &&
-            !dados[1].equals("") &&
-            !dados[1].matches("\\d+")
-        ) {
-            janelaAluno.mostrarErroFormulario("Matrícula inválida.");
-            temErro = true;
-            temErroRegex = true;
-        }
-        
-        if (
-            !temErroRegex &&
-            !dados[2].equals("") &&
-            !dados[2].matches("[a-zA-ZÀ-ÿ ]+")
-        ) {
-            janelaAluno.mostrarErroFormulario("Nome inválido.");
-            temErro = true;
-            temErroRegex = true;
-        }
-
-        if (
-            !temErroRegex &&
-            !dados[3].equals("") &&
-            !dados[3].matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")
-        ) {
-            janelaAluno.mostrarErroFormulario("Email inválido.");
-            temErro = true;
-            temErroRegex = true;
-        }
-
-        if(
-            !dados[1].equals("") &&
-            dados[1].matches("\\d+") 
-        ){
-            if(dados[0].equals("")){
-                int matriculaDigitada = Integer.parseInt(dados[1]);
-                for(int i = 0; i<alunos.size(); i++){
-                    if(matriculaDigitada == alunos.get(i).getMatricula()){
-                        janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com esta matrícula.");
-                        temErro = true;
-                        break;
-                    }
-                }
-            }else{
-                int idDigitado = Integer.parseInt(dados[0]);
-                int matriculaDigitada = Integer.parseInt(dados[1]);
-                for(int i=0; i<alunos.size(); i++){
-                    int idLoop = alunos.get(i).getId();
-                    int matriculaLoop = alunos.get(i).getMatricula();
-                    if((idDigitado != idLoop) && (matriculaDigitada == matriculaLoop)){
-                        janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com esta matrícula.");
-                        temErro = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if(
-            !dados[3].equals("") &&
-            dados[3].matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}") 
-        ){
-            if(dados[0].equals("")){
-                String emailDigitado = dados[3];
-                for(int i = 0; i<alunos.size(); i++){
-                    if(emailDigitado.equals(alunos.get(i).getEmail())){
-                        janelaAluno.mostrarErroFormulario("Já existe um aluno cadastrado com este email.");
-                        temErro = true;
-                        break;
-                    }
-                }
-            }else{
-                int idDigitado = Integer.parseInt(dados[0]);
-                String emailDigitado = dados[3];
-                for(int i=0; i<alunos.size(); i++){
-                    int idLoop = alunos.get(i).getId();
-                    String emailLoop = alunos.get(i).getEmail();
-                    if((idDigitado != idLoop) && (emailDigitado.equals(emailLoop))){
-                        janelaAluno.mostrarErroFormulario("Já existe outro aluno cadastrado com este email.");
-                        temErro = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if(!temErro){
-            janelaAluno.ocultarErroFormulario();
-        }
-
-        return temErro;
-    }
-
-    private Boolean verificarErrosBusca(){
-        boolean temErro = false;
-
-        String matriculaBuscada = janelaAluno.getDadoBusca();
-
-        if(matriculaBuscada.equals("")){
-            janelaAluno.mostrarErroBusca("Preencha o campo.");
-            temErro = true;
-        }
-
-        if (
-            !matriculaBuscada.equals("") &&
-            !matriculaBuscada.matches("\\d+")
-        ) {
-            janelaAluno.mostrarErroBusca("Matrícula inválida.");
-            temErro = true;
-        }
-
-        if(
-            !matriculaBuscada.equals("") &&
-            matriculaBuscada.matches("\\d+")
-        ){
-            int linha = procurarLinhaTabela();
-            if(linha == -1){
-                janelaAluno.mostrarErroBusca("Registro não encontrado.");
-                temErro = true;
-            }
-        }
-
-        if(!temErro){
-            janelaAluno.ocultarErroBusca();
-        }
-
-        return temErro;
-    }
-
     public static void main(String[] args) {
         AlunoController alunoController = new AlunoController();
     }

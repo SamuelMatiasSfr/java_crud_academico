@@ -122,16 +122,20 @@ public class AlunoValidator {
         String mensagem = "";
 
         if(
-            !matriculaPreenchido(dados[1]) ||
-            !nomePreenchido(dados[2]) ||
-            !emailPreenchido(dados[3])
+            emailPreenchido(dados[3]) &&
+            emailValido(dados[3]) &&
+            existeAlunoComEmail(dados[0], dados[3], ehCreate, alunos)
         ){
-            mensagem = "Preencha todos os campos obrigatórios.";
+            mensagem = "Já existe um aluno cadastrado com este email.";
             temErro = true;
         }
 
-        if(!idPreenchido(dados[0]) && !ehCreate){
-            mensagem = "Selecione um aluno para atualizar ou deletar.";
+        if(
+            matriculaPreenchido(dados[1]) &&
+            matriculaValido(dados[1]) &&
+            existeAlunoComMatricula(dados[0], dados[1], ehCreate, alunos)
+        ){
+            mensagem = "Já existe um aluno cadastrado com esta matrícula.";
             temErro = true;
         }
 
@@ -156,20 +160,16 @@ public class AlunoValidator {
         }
 
         if(
-            matriculaPreenchido(dados[1]) &&
-            matriculaValido(dados[1]) &&
-            existeAlunoComMatricula(dados[0], dados[1], ehCreate, alunos)
+            !matriculaPreenchido(dados[1]) ||
+            !nomePreenchido(dados[2]) ||
+            !emailPreenchido(dados[3])
         ){
-            mensagem = "Já existe um aluno cadastrado com esta matrícula.";
+            mensagem = "Preencha todos os campos obrigatórios.";
             temErro = true;
         }
 
-        if(
-            emailPreenchido(dados[3]) &&
-            emailValido(dados[3]) &&
-            existeAlunoComEmail(dados[0], dados[3], ehCreate, alunos)
-        ){
-            mensagem = "Já existe um aluno cadastrado com este email.";
+        if(!idPreenchido(dados[0]) && !ehCreate){
+            mensagem = "Selecione um aluno para atualizar ou deletar.";
             temErro = true;
         }
 
@@ -179,11 +179,6 @@ public class AlunoValidator {
     public static ResultadoValidacao verificarErrosBusca(String dado, int linha){
         boolean temErro = false;
         String mensagem = "";
-        
-        if(!matriculaPreenchido(dado)){
-            mensagem = "Preencha o campo.";
-            temErro = true;
-        }
 
         if(matriculaPreenchido(dado)){
             if(!matriculaValido(dado)){
@@ -194,6 +189,11 @@ public class AlunoValidator {
                 mensagem = "Registro não encontrado.";
                 temErro = true;
             }
+        }
+
+        if(!matriculaPreenchido(dado)){
+            mensagem = "Preencha o campo.";
+            temErro = true;
         }
 
         return new ResultadoValidacao(temErro, mensagem);
