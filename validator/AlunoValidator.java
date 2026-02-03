@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AlunoValidator {
 
-    private static Boolean idPreenchido(String id){
+    private static boolean idPreenchido(String id){
         if(!id.equals("")){
            return true; 
         }else{
@@ -14,7 +14,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean matriculaPreenchido(String matricula){
+    private static boolean matriculaPreenchido(String matricula){
         if(!matricula.equals("")){
            return true; 
         }else{
@@ -22,7 +22,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean nomePreenchido(String nome){
+    private static boolean nomePreenchido(String nome){
         if(!nome.equals("")){
            return true; 
         }else{
@@ -30,7 +30,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean emailPreenchido(String email){
+    private static boolean emailPreenchido(String email){
         if(!email.equals("")){
            return true; 
         }else{
@@ -38,7 +38,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean matriculaValido(String matricula){
+    private static boolean matriculaValido(String matricula){
         if(matricula.matches("\\d+")){
            return true; 
         }else{
@@ -46,7 +46,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean nomeValido(String nome){
+    private static boolean nomeValido(String nome){
         if(nome.matches("[a-zA-ZÀ-ÿ ]+")){
            return true; 
         }else{
@@ -54,7 +54,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean emailValido(String email){
+    private static boolean emailValido(String email){
         if(email.matches("[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}")){
            return true; 
         }else{
@@ -62,7 +62,7 @@ public class AlunoValidator {
         }
     }
 
-    private static Boolean existeAlunoComMatricula(String id, String matricula, boolean ehCreate, ArrayList<Aluno> alunos){
+    private static boolean existeAlunoComMatricula(String id, String matricula, boolean ehCreate, ArrayList<Aluno> alunos){
         boolean existe = false;
 
         int matriculaDigitado = Integer.parseInt(matricula);
@@ -86,7 +86,7 @@ public class AlunoValidator {
         return existe;
     }
 
-    private static Boolean existeAlunoComEmail(String id, String email, boolean ehCreate, ArrayList<Aluno> alunos){
+    private static boolean existeAlunoComEmail(String id, String email, boolean ehCreate, ArrayList<Aluno> alunos){
         boolean existe = false;
 
         for(int i=0; i<alunos.size(); i++){
@@ -109,7 +109,7 @@ public class AlunoValidator {
         return existe;
     }
 
-    private static Boolean naoExisteRegistro(int linha){
+    private static boolean naoExisteRegistro(int linha){
         if(linha == -1){
             return true;
         }else{
@@ -117,8 +117,9 @@ public class AlunoValidator {
         }
     }
 
-    public static Boolean verificarErrosFormulario(String[] dados, ArrayList<Aluno> alunos, boolean ehCreate, String mensagem){
+    public static ResultadoValidacao verificarErrosFormulario(String[] dados, ArrayList<Aluno> alunos, boolean ehCreate){
         boolean temErro = false;
+        String mensagem = "";
 
         if(
             !matriculaPreenchido(dados[1]) ||
@@ -148,7 +149,7 @@ public class AlunoValidator {
             temErro = true;
         } else if (
             emailPreenchido(dados[3]) &&
-            !emailPreenchido(dados[3])
+            !emailValido(dados[3])
         ) {
             mensagem = "Email inválido.";
             temErro = true;
@@ -172,11 +173,12 @@ public class AlunoValidator {
             temErro = true;
         }
 
-        return temErro;
+        return new ResultadoValidacao(temErro, mensagem);
     }
 
-    public static Boolean verificarErrosBusca(String dado, int linha, String mensagem){
+    public static ResultadoValidacao verificarErrosBusca(String dado, int linha){
         boolean temErro = false;
+        String mensagem = "";
         
         if(!matriculaPreenchido(dado)){
             mensagem = "Preencha o campo.";
@@ -194,7 +196,7 @@ public class AlunoValidator {
             }
         }
 
-        return temErro;
+        return new ResultadoValidacao(temErro, mensagem);
     }
     
 }
