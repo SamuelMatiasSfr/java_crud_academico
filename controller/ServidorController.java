@@ -1,16 +1,23 @@
 package controller;
 
+import model.Servidor;
 import repository.ServidorRepository;
+import validator.ServidorValidator;
+import validator.ResultadoValidacao;
 import view.JanelaServidor;
 
-public class ServidorController {
+import java.util.ArrayList;
 
-    private ServidorRepository servidorRepository;
+public class ServidorController{
+
+    private ServidorRepository alunoRepository;
     private JanelaServidor janelaServidor;
+    private ArrayList<Servidor> servidores;
 
     public ServidorController() {
-        this.servidorRepository = new ServidorRepository();
+        this.alunoRepository = new ServidorRepository();
         this.janelaServidor = new JanelaServidor();
+        this.servidores = new ArrayList<>();
     }
-    
+
 }

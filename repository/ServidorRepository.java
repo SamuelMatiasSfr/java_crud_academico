@@ -21,36 +21,7 @@ public class ServidorRepository {
             stmt.setString(3, servidor.getEmail());
             stmt.setString(4, servidor.getSetor());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Servidor read(int id){
-        String sql = "SELECT * FROM servidores WHERE id = ?";    
-        Servidor servidor = null;
-
-        try { 
-            Connection conexao = Conexao.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet result = stmt.executeQuery();
-
-            if(result.next()){
-                servidor = new Servidor(
-                    result.getInt("id"), 
-                    result.getInt("matricula"), 
-                    result.getString("nome"), 
-                    result.getString("email"),
-                    result.getString("setor")
-                );
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return servidor;
+        } catch (SQLException e) {}
     }
 
     public void update(Servidor servidor){
@@ -65,9 +36,7 @@ public class ServidorRepository {
             stmt.setString(4, servidor.getSetor());
             stmt.setInt(5, servidor.getId());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
     }
 
@@ -106,9 +75,7 @@ public class ServidorRepository {
                     )
                 ); 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
 
         return servidores;
     }

@@ -19,14 +19,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class JanelaServidor extends JFrame {
 
-    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelSetor,
-                   labelBusca, labelErroFormulario, labelErroBusca;
+    private JLabel labelId, labelMatricula, labelNome, labelEmail, labelSetor, labelBusca, labelErroFormulario, labelErroBusca;
     private JTextField textoId, textoMatricula, textoNome, textoEmail, textoSetor, textoBusca;
     private JButton botaoCreate, botaoUpdate, botaoDelete, botaoLimpar, botaoBuscar;
     private DefaultTableModel tabelaModel;
     private JTable tabela;
-    private JPanel painelId, painelMatricula, painelNome, painelEmail, painelSetor,
-                   painelErro, painelBotoes, painelEsquerdo, painelBusca, painelDireito;
+    private JPanel painelId, painelMatricula, painelNome, painelEmail, painelSetor, painelErro, painelBotoes, painelEsquerdo, painelBusca, painelDireito;
     private JScrollPane painelScrollTabela;
 
     public JanelaServidor(){
