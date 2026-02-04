@@ -119,6 +119,7 @@ public class JanelaAluno extends JFrame {
         criarPainelScrollTabela();
         criarPainelBusca();
         criarPainelDireito();
+        
         add(painelEsquerdo, BorderLayout.WEST);
         add(painelDireito, BorderLayout.EAST);
     }
