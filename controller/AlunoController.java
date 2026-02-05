@@ -60,6 +60,7 @@ public class AlunoController{
                         salvarAluno(dados);
                         atualizarTabela();
                         janelaAluno.limparCamposFormulario();
+                        janelaAluno.ocultarErroFormulario();
                     }else{
                         janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -79,6 +80,7 @@ public class AlunoController{
                         atualizarAluno(dados);
                         atualizarTabela();
                         janelaAluno.limparCamposFormulario();
+                        janelaAluno.ocultarErroFormulario();
                     }else{
                         janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -98,6 +100,7 @@ public class AlunoController{
                         deletarAluno(dados);
                         atualizarTabela();
                         janelaAluno.limparCamposFormulario();
+                        janelaAluno.ocultarErroFormulario();
                     }else{
                         janelaAluno.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -128,6 +131,7 @@ public class AlunoController{
                     ResultadoValidacao resultadoValidacao = AlunoValidator.verificarErrosBusca(dado, linha);
                     if(!resultadoValidacao.isTemErro()){
                         janelaAluno.selecionarLinhaTabela(linha);
+                        janelaAluno.ocultarErroBusca();
                     }else{
                         janelaAluno.mostrarErroBusca(resultadoValidacao.getMensagem());
                     }

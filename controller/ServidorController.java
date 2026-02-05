@@ -60,6 +60,7 @@ public class ServidorController{
                         salvarServidor(dados);
                         atualizarTabela();
                         janelaServidor.limparCamposFormulario();
+                        janelaServidor.ocultarErroFormulario();
                     }else{
                         janelaServidor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -79,6 +80,7 @@ public class ServidorController{
                         atualizarServidor(dados);
                         atualizarTabela();
                         janelaServidor.limparCamposFormulario();
+                        janelaServidor.ocultarErroFormulario();
                     }else{
                         janelaServidor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -98,6 +100,7 @@ public class ServidorController{
                         deletarServidor(dados);
                         atualizarTabela();
                         janelaServidor.limparCamposFormulario();
+                        janelaServidor.ocultarErroFormulario();
                     }else{
                         janelaServidor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -128,6 +131,7 @@ public class ServidorController{
                     ResultadoValidacao resultadoValidacao = ServidorValidator.verificarErrosBusca(dado, linha);
                     if(!resultadoValidacao.isTemErro()){
                         janelaServidor.selecionarLinhaTabela(linha);
+                        janelaServidor.ocultarErroBusca();
                     }else{
                         janelaServidor.mostrarErroBusca(resultadoValidacao.getMensagem());
                     }

@@ -60,6 +60,7 @@ public class ProfessorController{
                         salvarProfessor(dados);
                         atualizarTabela();
                         janelaProfessor.limparCamposFormulario();
+                        janelaProfessor.ocultarErroFormulario();
                     }else{
                         janelaProfessor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -79,6 +80,7 @@ public class ProfessorController{
                         atualizarProfessor(dados);
                         atualizarTabela();
                         janelaProfessor.limparCamposFormulario();
+                        janelaProfessor.ocultarErroFormulario();
                     }else{
                         janelaProfessor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -98,6 +100,7 @@ public class ProfessorController{
                         deletarProfessor(dados);
                         atualizarTabela();
                         janelaProfessor.limparCamposFormulario();
+                        janelaProfessor.ocultarErroFormulario();
                     }else{
                         janelaProfessor.mostrarErroFormulario(resultadoValidacao.getMensagem());
                     }
@@ -128,6 +131,7 @@ public class ProfessorController{
                     ResultadoValidacao resultadoValidacao = ProfessorValidator.verificarErrosBusca(dado, linha);
                     if(!resultadoValidacao.isTemErro()){
                         janelaProfessor.selecionarLinhaTabela(linha);
+                        janelaProfessor.ocultarErroBusca();
                     }else{
                         janelaProfessor.mostrarErroBusca(resultadoValidacao.getMensagem());
                     }
