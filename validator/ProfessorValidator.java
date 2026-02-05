@@ -1,6 +1,6 @@
 package validator;
 
-import model.Servidor;
+import model.Professor;
 
 import java.util.ArrayList;
 
@@ -100,12 +100,12 @@ public class ProfessorValidator {
         }
     }
 
-    private static boolean existeAlunoComMatricula(String id, String matricula, boolean ehCreate, ArrayList<Servidor> servidores){
+    private static boolean existeAlunoComMatricula(String id, String matricula, boolean ehCreate, ArrayList<Professor> professores){
         boolean existe = false;
 
         int matriculaDigitado = Integer.parseInt(matricula);
-        for(int i=0; i<servidores.size(); i++){
-            int matriculaLoop = servidores.get(i).getMatricula();
+        for(int i=0; i<professores.size(); i++){
+            int matriculaLoop = professores.get(i).getMatricula();
             if(ehCreate){
                 if(matriculaDigitado == matriculaLoop){
                     existe = true;
@@ -113,7 +113,7 @@ public class ProfessorValidator {
                 }
             }else{
                 int idDigitado = Integer.parseInt(id);
-                int idLoop = servidores.get(i).getId();
+                int idLoop = professores.get(i).getId();
                 if((idDigitado != idLoop) && (matriculaDigitado == matriculaLoop)){
                     existe = true;
                     break;
@@ -124,11 +124,11 @@ public class ProfessorValidator {
         return existe;
     }
 
-    private static boolean existeAlunoComEmail(String id, String email, boolean ehCreate, ArrayList<Servidor> servidores){
+    private static boolean existeAlunoComEmail(String id, String email, boolean ehCreate, ArrayList<Professor> professores){
         boolean existe = false;
 
-        for(int i=0; i<servidores.size(); i++){
-            String emailLoop = servidores.get(i).getEmail();
+        for(int i=0; i<professores.size(); i++){
+            String emailLoop = professores.get(i).getEmail();
             if(ehCreate){
                 if(email.equals(emailLoop)){
                     existe = true;
@@ -136,7 +136,7 @@ public class ProfessorValidator {
                 }
             }else{
                 int idDigitado = Integer.parseInt(id);
-                int idLoop = servidores.get(i).getId();
+                int idLoop = professores.get(i).getId();
                 if((idDigitado != idLoop) && (email.equals(emailLoop))){
                     existe = true;
                     break;
@@ -155,14 +155,14 @@ public class ProfessorValidator {
         }
     }
 
-    public static ResultadoValidacao verificarErrosFormulario(String[] dados, ArrayList<Servidor> servidores, boolean ehCreate){
+    public static ResultadoValidacao verificarErrosFormulario(String[] dados, ArrayList<Professor> professores, boolean ehCreate){
         boolean temErro = false;
         String mensagem = "";
 
         if(
             emailPreenchido(dados[3]) &&
             emailValido(dados[3]) &&
-            existeAlunoComEmail(dados[0], dados[3], ehCreate, servidores)
+            existeAlunoComEmail(dados[0], dados[3], ehCreate, professores)
         ){
             mensagem = "Já existe um professor cadastrado com este email.";
             temErro = true;
@@ -171,7 +171,7 @@ public class ProfessorValidator {
         if(
             matriculaPreenchido(dados[1]) &&
             matriculaValido(dados[1]) &&
-            existeAlunoComMatricula(dados[0], dados[1], ehCreate, servidores)
+            existeAlunoComMatricula(dados[0], dados[1], ehCreate, professores)
         ){
             mensagem = "Já existe um professor cadastrado com esta matrícula.";
             temErro = true;
