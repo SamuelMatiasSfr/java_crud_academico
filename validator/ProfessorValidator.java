@@ -87,14 +87,17 @@ public class ProfessorValidator {
     }
 
     private static boolean statusValido(String status){
-        if(
-            status.matches("[a-zA-ZÀ-ÿ ]+") ||
-            !status.equals("Ativo") ||
-            !status.equals("ativo") ||
-            !status.equals("Inativo") ||
-            !status.equals("inativo")
-        ){
-           return true; 
+        if(status.matches("[a-zA-ZÀ-ÿ ]+")){
+            if(
+                status.equals("Ativo") ||
+                status.equals("ativo") ||
+                status.equals("Inativo") ||
+                status.equals("inativo") 
+            ){
+                return true;
+            } else{
+                return false;
+            }
         }else{
             return false;
         }
@@ -214,7 +217,7 @@ public class ProfessorValidator {
             !nomePreenchido(dados[2]) ||
             !emailPreenchido(dados[3]) ||
             !formacaoPreenchido(dados[4]) ||
-            !statusPreenchido(dados[4])
+            !statusPreenchido(dados[5])
         ){
             mensagem = "Preencha todos os campos obrigatórios.";
             temErro = true;
