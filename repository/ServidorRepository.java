@@ -57,7 +57,7 @@ public class ServidorRepository {
     public ArrayList<Servidor> getTodos(){
         ArrayList<Servidor> servidores = new ArrayList<>();
 
-        String sql = "SELECT * FROM professores";
+        String sql = "SELECT * FROM servidores";
 
         try {
             Connection conexao = Conexao.getConexao();

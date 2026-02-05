@@ -137,8 +137,8 @@ public class AlunoController{
     }
 
     private void atualizarTabela(){
-        this.alunos.clear();
-        this.alunos = this.alunoRepository.getTodos();
+        alunos.clear();
+        alunos = alunoRepository.getTodos();
 
         Object [][] dados = new Object[alunos.size()][4];
         for(int i=0; i<dados.length; i++){
