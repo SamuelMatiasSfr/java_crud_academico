@@ -20,6 +20,8 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 2. Abra o projeto na IDE de sua preferência
 4. Execute a classe `Main.java`
 
+---
+
 > **Observação:**
 > Execute o projeto no modo janela, na resolução previamente criada.
 > Não utilize o modo tela cheia, pois pode causar problemas de escala.
