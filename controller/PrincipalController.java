@@ -40,19 +40,15 @@ public class PrincipalController {
     }
 
     public void criarGerenciadorAlunos(){
-        AlunoController alunoController = new AlunoController();
+        new AlunoController();
     }
 
     public void criarGerenciadorProfessores(){
-        ProfessorController professorController = new ProfessorController();
+        new ProfessorController();
     }
 
     public void criarGerenciadorServidores(){
-        ServidorController servidorController = new ServidorController();
-    }
-
-    public static void main(String[] args) {
-        PrincipalController principalController = new PrincipalController();
+        new ServidorController();
     }
     
 }

@@ -324,8 +324,4 @@ public class JanelaServidor extends JFrame {
         tabela.setModel(tabelaModel);
     }
 
-    public static void main(String[] args) {
-        new JanelaServidor();
-    }
-
 }

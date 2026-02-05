@@ -341,8 +341,4 @@ public class JanelaProfessor extends JFrame {
         tabela.setModel(tabelaModel);
     }
 
-    public static void main(String[] args) {
-        new JanelaProfessor();
-    }
-
 }

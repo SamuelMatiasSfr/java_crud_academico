@@ -191,9 +191,5 @@ public class AlunoController{
 
         return linha;
     }
-    
-    public static void main(String[] args) {
-        AlunoController alunoController = new AlunoController();
-    }
 
 }

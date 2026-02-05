@@ -211,9 +211,5 @@ public class ProfessorController{
 
         return linha;
     }
-    
-    public static void main(String[] args) {
-        ProfessorController professorController = new ProfessorController();
-    }
 
 }

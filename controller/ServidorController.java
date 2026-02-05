@@ -194,9 +194,5 @@ public class ServidorController{
 
         return linha;
     }
-    
-    public static void main(String[] args) {
-        ServidorController servidorController = new ServidorController();
-    }
 
 }
