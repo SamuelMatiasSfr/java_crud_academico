@@ -12,7 +12,7 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 - Java
 - Java Swing
 - MySQL
-- Git/GitHub
+- GitHub Desktop
 - VS Code
 
 ## Como executar
