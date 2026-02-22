@@ -2,13 +2,13 @@
 
 Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, permitindo cadastro, edição e exclusão de registros.
 
-## Funcionalidades:
+## Funcionalidades
 - Cadastrar entidades
 - Editar entidades
 - Excluir entidades
 - Listar entidades em uma tabela 
 
-## Tecnologias:
+## Tecnologias usadas
 - Java
 - Java Swing
 - MySQL
