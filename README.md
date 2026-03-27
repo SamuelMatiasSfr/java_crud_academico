@@ -38,7 +38,8 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 ## Telas do Sistema
 
 ### Tela Inicial
-<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/0dd4e3d6-5214-4053-bdcb-9fc1a286302c" />
+<img width="381" height="188" alt="image" src="https://github.com/user-attachments/assets/0dd4e3d6-5214-4053-bdcb-9fc1a286302c" />
+<img width="381" height="188" alt="Screenshot 2026-03-27 133236" src="https://github.com/user-attachments/assets/6e143a5b-2c92-4b5e-81f4-3c6338fe06c5" />
 
 ### Tela de Gerenciamento de Entidades
 <img width="880" height="340" alt="image" src="https://github.com/user-attachments/assets/e436b3b5-5417-45e1-a44f-cfedefcca9fb" />
