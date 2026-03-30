@@ -33,7 +33,7 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 
 ## Como usar
 - Para buscar um registro, digite a matrícula do resgistro desejado no campo "Digte matrícula:" e clique no botão "Buscar"
-- Para editar ou deletar um registro, aperte no registro desejado na tabela e as informações aparecerão no campo de informações. Depois é só executar a operação desejada, clicando no botão "Update" ou no botão "Delete"
+- Para editar ou deletar um registro, aperte no registro desejado na tabela e as informações aparecerão no campo de informações. Edite as informações, se necessário. Depois é só executar a operação desejada, clicando no botão "Update" ou no botão "Delete"
 
 ## Telas do Sistema
 
