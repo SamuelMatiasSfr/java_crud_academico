@@ -5,7 +5,7 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 ## Objetivos
 - Praticar desenvolvimento backend com Java
 - Implementar operações de CRUD com integração ao banco de dados MySQL
-- Trabalhar com manipulação de dados no servidor (requisições, formulários e respostas)
+- Trabalhar com manipulação de dados no servidor (requisições e respostas)
 - Consolidar o uso de SQL em operações reais dentro de uma aplicação
 
 ## Funcionalidades
