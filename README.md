@@ -37,8 +37,8 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 > Não utilize o modo tela cheia, pois pode causar problemas de escala.
 
 ## Como usar
-- Para buscar um registro, digite a matrícula do resgistro desejado no campo "Digte matrícula:" e clique no botão "Buscar"
-- Para editar ou deletar um registro, aperte no registro desejado na tabela e as informações aparecerão no campo de informações. Edite as informações, se necessário. Depois é só executar a operação desejada, clicando no botão "Update" ou no botão "Delete"
+- Para buscar um registro, digite a matrícula do resgistro desejado no campo **Digte matrícula:** e clique no botão **Buscar**
+- Para editar ou deletar um registro, aperte no registro desejado na tabela e as informações aparecerão no campo de informações. Edite as informações, se necessário. Depois é só executar a operação desejada, clicando no botão **Update** ou no botão **Delete**
 
 ## Telas do Sistema
 
