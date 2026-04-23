@@ -18,6 +18,8 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 ## Tecnologias usadas
 - Java
 - Java Swing
+- JDBC
+- SQL
 - MySQL
 - GitHub Desktop
 - VS Code
