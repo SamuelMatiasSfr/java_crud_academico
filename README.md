@@ -27,7 +27,10 @@ Projeto em Java para gerenciar alunos, professores e técnicos-administrativos, 
 ## Como executar
 1. Baixe e extraia o arquivo zip do projeto
 2. Abra o projeto na IDE de sua preferência
-4. Execute a classe `Main.java`
+3. Abra o SGBD de sua preferência e execute o script do arquivo script_banco.txt
+4. Abra o XAMPP e inicie o Apache e o MySQL
+5. Execute a classe `Main.java`
+6. Teste o projeto
 
 > **Observação:**
 > Execute o projeto no modo janela, na resolução previamente criada.
